@@ -16,13 +16,25 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include "mlx.h"
+// # include <string.h>
+# include <errno.h>
+# include "/home/yael-maa/cub3d/MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
+
+typedef enum s_part
+{
+	FLOOR,
+	WALL,
+} t_part ;
 
 typedef struct s_map
 {
-	void	*mlx;
-	void	*win;
-} t_map;
+	void*			mlx;
+	mlx_image_t*	img;
+	mlx_image_t*	floor_img;
+	mlx_image_t*	wall_img;
+	int			x_size;
+	int			y_size;
+} t_map ;
 
 #endif

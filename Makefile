@@ -1,4 +1,4 @@
-SRC= test.c #src/main.c \
+SRC= src/main.c #test.c \
 
 OBJS= $(SRC:.c=.o)
 
@@ -11,10 +11,10 @@ CFLAGS= -Wall -Wextra -Werror
 all:$(NAME)
 
 $(NAME):$(OBJS) inc/cub3d.h
-	$(CC) $(OBJS) -Lmlx_linux -lmlx_Linux -lXext -lX11 -lm -lz -Imlx_linux  -o $(NAME)
+	$(CC) $(OBJS) MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm -o $(NAME)
 
 %.o:%.c inc/cub3d.h
-	$(CC)  -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	$(CC) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
