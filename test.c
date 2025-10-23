@@ -105,8 +105,20 @@
 
 //     return 0;
 // }
-int	main()//int ac, char **av
-{
-	printf("errno = %d\n", errno);
-	return (0);
-}
+// int	main()//int ac, char **av
+// {
+// 	printf("errno = %d\n", errno);
+// 	return (0);
+// }
+/*
+87 = w
+
+65 = a
+83 = s
+68 = d
+256 = esc
+263 = ^
+264 = <
+262 = >
+265 =| ^
+*/

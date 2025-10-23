@@ -27,6 +27,11 @@ typedef enum s_part
 	WALL,
 } t_part ;
 
+typedef struct s_pos
+{
+	int	x;
+	int	y;
+} t_pos ;
 typedef struct s_map
 {
 	void*			mlx;
@@ -34,8 +39,9 @@ typedef struct s_map
 	mlx_image_t*	floor_img;
 	mlx_image_t*	wall_img;
 	mlx_image_t*	player_img;
-	int			x_size;
-	int			y_size;
+	t_pos			player;
+	int				x_size;
+	int				y_size;
 } t_map ;
 
 #endif

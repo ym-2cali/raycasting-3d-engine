@@ -113,6 +113,22 @@ void	player_img(t_map *map, uint32_t color)
 	}
 }
 
+void	key_events(mlx_key_data_t keydata, void* param)
+{
+	t_map *map = (t_map *)param;
+
+	if (keydata.key == 256)
+	{
+		mlx_terminate(map->mlx);
+		exit (0);
+	}
+	else if (keydata.key == 65)
+	{
+		if ();
+	}
+	printf("%d\n", keydata.key);
+}
+
 int	main(int ac, char **av)
 {
 	t_map map;
@@ -175,6 +191,7 @@ int	main(int ac, char **av)
 		x = 0;
 		y += map.y_size;
 	}
+	mlx_key_hook(map.mlx, &key_events, &map);
 	mlx_loop(map.mlx);
 	mlx_terminate(map.mlx);
 	return (0);
