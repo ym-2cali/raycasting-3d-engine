@@ -45,6 +45,8 @@ int	ft_strlen(char *s)
 {
 	int	i;
 
+	if (!s)
+		return (0);
 	i = 0;
 	while (s[++i])
 		;
@@ -64,6 +66,7 @@ void	get_img(t_map *map)
 	map->floor_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
 	map->wall_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
 	map->img = mlx_new_image(map->mlx, map->x_size, map->y_size);
+	map->player_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
 }
 
 void	draw_img(t_map *map, mlx_image_t* img, uint32_t color)
@@ -77,6 +80,35 @@ void	draw_img(t_map *map, mlx_image_t* img, uint32_t color)
 		x = 0;
 		while (x < map->x_size)
 			mlx_put_pixel(img, x++, y, color);
+		y++;
+	}
+}
+
+void	player_img(t_map *map, uint32_t color)
+{
+	int	cx;
+	int	cy;
+	int	r;
+	int	y;
+	int	x;
+	int	dx;
+	int	dy;
+
+	cx = map->x_size / 2;
+	cy = map->y_size / 2;
+	r = (map->x_size < map->y_size ? map->x_size : map->y_size) / 3;
+	y = 0;
+	while (y < map->y_size)
+	{
+		x = 0;
+		while(x < map->x_size)
+		{
+			dx = x - cx;
+			dy = y - cy;
+			if ((dx * dx) + (dy * dy) <= (r * r))
+				mlx_put_pixel(map->player_img, x, y, color);
+			x++;
+		}
 		y++;
 	}
 }
@@ -97,8 +129,8 @@ int	main(int ac, char **av)
 	    "10000000000000001100000010001",
 	    "10000000000000001101010010001",
 	    "11000001110101011111011110N0111",
-	    "111101111110101101111010001",
-	    "1111111111111111111111111111",
+	    "11110111 1110101 101111010001",
+	    "11111111 1111111 111111111111",
 	    NULL
 	};
 	(void)ac;
@@ -114,7 +146,10 @@ int	main(int ac, char **av)
 	get_img(&map);
 	draw_img(&map, map.floor_img, get_color(87, 84, 84, 255));
 	draw_img(&map, map.wall_img, get_color(0, 0, 0, 255));
-	draw_img(&map, map.img, get_color(204, 57, 9, 255));
+	// draw_img(&map, map.player_img, get_color(204, 57, 9, 255));
+	player_img(&map, get_color(204, 57, 9, 255));
+	draw_img(&map, map.img, get_color(0, 0, 0, 0));
+
 	while (mapp[++i])
 	{
 		map.x_size = 1920 / ft_strlen(mapp[i]);
@@ -127,6 +162,11 @@ int	main(int ac, char **av)
 				mlx_image_to_window(map.mlx, map.floor_img, x, y);
 			else if (mapp[i][j] == '1')
 				mlx_image_to_window(map.mlx, map.wall_img, x, y);
+			else if (mapp[i][j] == 'N')
+			{
+				mlx_image_to_window(map.mlx, map.floor_img, x, y);
+				mlx_image_to_window(map.mlx, map.player_img, x, y);
+			}
 			else
 				mlx_image_to_window(map.mlx, map.img, x, y);
 			x += map.x_size;

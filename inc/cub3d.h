@@ -33,6 +33,7 @@ typedef struct s_map
 	mlx_image_t*	img;
 	mlx_image_t*	floor_img;
 	mlx_image_t*	wall_img;
+	mlx_image_t*	player_img;
 	int			x_size;
 	int			y_size;
 } t_map ;
