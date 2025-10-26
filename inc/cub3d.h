@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:11:58 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/09/28 20:17:39 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/10/26 16:35:16 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_pos
 typedef struct s_map
 {
 	void*			mlx;
+	char			**arr;
 	mlx_image_t*	img;
 	mlx_image_t*	floor_img;
 	mlx_image_t*	wall_img;
@@ -43,5 +44,11 @@ typedef struct s_map
 	int				x_size;
 	int				y_size;
 } t_map ;
+
+void	player_img(t_map *map, uint32_t color);
+void	draw_img(t_map *map, mlx_image_t* img, uint32_t color);
+void	get_img(t_map *map);
+void	ft_bzero(void *s, size_t n);
+int		ft_strlen(char *s);
 
 #endif

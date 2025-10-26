@@ -1,4 +1,4 @@
-SRC= src/main.c #test.c \
+SRC= src/main.c src/assets/imgs.c src/assets/moves.c src/utils/libft.c #test.c \
 
 OBJS= $(SRC:.c=.o)
 

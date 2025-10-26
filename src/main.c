@@ -6,25 +6,11 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:03:21 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/09/28 20:24:34 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/10/26 16:36:37 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-void	ft_bzero(void *s, size_t n)
-{
-	unsigned char	*c;
-	size_t			i;
-
-	c = (unsigned char *)s;
-	i = 0;
-	while (i < n)
-	{
-		c[i] = 0;
-		i++;
-	}
-}
 
 int	get_height(char **arr)
 {
@@ -41,17 +27,6 @@ uint32_t	get_color(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-int	ft_strlen(char *s)
-{
-	int	i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[++i])
-		;
-	return (i);
-}
 int	get_window(t_map *map)
 {
 	map->mlx = mlx_init(1920, 1080, "hello", 0);
@@ -59,58 +34,6 @@ int	get_window(t_map *map)
 		return (1);
 	// map->win = mlx_new_window(map->mlx, 1920, 1080, "hello");
 	return (0);
-}
-
-void	get_img(t_map *map)
-{
-	map->floor_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
-	map->wall_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
-	map->img = mlx_new_image(map->mlx, map->x_size, map->y_size);
-	map->player_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
-}
-
-void	draw_img(t_map *map, mlx_image_t* img, uint32_t color)
-{
-	int			x;
-	int			y;
-
-	y = 0;
-	while (y < map->y_size)
-	{
-		x = 0;
-		while (x < map->x_size)
-			mlx_put_pixel(img, x++, y, color);
-		y++;
-	}
-}
-
-void	player_img(t_map *map, uint32_t color)
-{
-	int	cx;
-	int	cy;
-	int	r;
-	int	y;
-	int	x;
-	int	dx;
-	int	dy;
-
-	cx = map->x_size / 2;
-	cy = map->y_size / 2;
-	r = (map->x_size < map->y_size ? map->x_size : map->y_size) / 3;
-	y = 0;
-	while (y < map->y_size)
-	{
-		x = 0;
-		while(x < map->x_size)
-		{
-			dx = x - cx;
-			dy = y - cy;
-			if ((dx * dx) + (dy * dy) <= (r * r))
-				mlx_put_pixel(map->player_img, x, y, color);
-			x++;
-		}
-		y++;
-	}
 }
 
 void	key_events(mlx_key_data_t keydata, void* param)
@@ -122,13 +45,27 @@ void	key_events(mlx_key_data_t keydata, void* param)
 		mlx_terminate(map->mlx);
 		exit (0);
 	}
-	else if (keydata.key == 65)
-	{
-		if ();
-	}
+	// else if (keydata.key == 65)
+	// {
+	// 	if ();
+	// }
 	printf("%d\n", keydata.key);
 }
 
+int	map_len(t_map *map)
+{
+	int	len;
+	int	i;
+
+	len = 0;
+	i = -1;
+	while (map->arr[++i])
+	{
+		if (ft_strlen(map->arr[i]))
+			len = ft_strlen(map->arr[i]);
+	}
+	return (len);
+}
 int	main(int ac, char **av)
 {
 	t_map map;
@@ -152,23 +89,22 @@ int	main(int ac, char **av)
 	(void)ac;
 	(void)av;
 	ft_bzero(&map, sizeof(t_map));
+	map.arr = mapp;
 	if (get_window(&map))
 		return (write(2, "graphics connection Failed\n", 27), 1);
 	int	i = -1;
 	float	x = 0;
 	float	y = 0;
-	map.y_size = 1080 / get_height(mapp);
-	map.x_size = 1920 / ft_strlen(mapp[0]);
+	map.y_size = 1080 / get_height(map.arr);
+	map.x_size = 1920 / map_len(&map);
 	get_img(&map);
 	draw_img(&map, map.floor_img, get_color(87, 84, 84, 255));
 	draw_img(&map, map.wall_img, get_color(0, 0, 0, 255));
 	// draw_img(&map, map.player_img, get_color(204, 57, 9, 255));
 	player_img(&map, get_color(204, 57, 9, 255));
 	draw_img(&map, map.img, get_color(0, 0, 0, 0));
-
 	while (mapp[++i])
 	{
-		map.x_size = 1920 / ft_strlen(mapp[i]);
 		if (map.x_size <= 0 || map.y_size <= 0)
     		return (2);
 		int j = 0;
