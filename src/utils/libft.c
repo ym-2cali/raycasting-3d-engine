@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:05:48 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/10/24 18:06:29 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/10/28 15:56:16 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,45 @@ int	ft_strlen(char *s)
 	while (s[++i])
 		;
 	return (i);
+}
+
+void	player_pos(t_map *map)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (map->arr[++i])
+	{
+		j = 0;
+		while (map->arr[i][j])
+		{
+			
+			if (map->arr[i][j] == 'N')
+			{
+				map->player.spg_or = N;
+				map->player.x = j;
+				map->player.y = i; 
+			}
+			else if (map->arr[i][j] == 'E')
+			{
+				map->player.spg_or = E;
+				map->player.x = j;
+				map->player.y = i; 
+			}
+			else if (map->arr[i][j] == 'W')
+			{
+				map->player.spg_or = W;
+				map->player.x = j;
+				map->player.y = i; 
+			}
+			else if (map->arr[i][j] == 'S')
+			{
+				map->player.spg_or = S;
+				map->player.x = j;
+				map->player.y = i;
+			}
+			j++;
+		}
+	}
 }
