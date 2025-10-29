@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:03:21 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/10/28 22:31:46 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/10/29 17:25:29 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ uint32_t	get_color(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
 
 int	get_window(t_map *map)
 {
-	map->mlx = mlx_init(1920, 1080, "hello", 0);
+	map->mlx = mlx_init(1366, 768, "hello", 0);
 	if (!map->mlx)
 		return (1);
 	// map->win = mlx_new_window(map->mlx, 1920, 1080, "hello");
@@ -47,7 +47,8 @@ void	key_events(mlx_key_data_t keydata, void* param)
 	}
 	// else if (keydata.key == 65)
 	// {
-	// 	if ();
+		// if ();
+		
 	// }
 	printf("%d\n", keydata.key);
 }
@@ -92,47 +93,16 @@ int	main(int ac, char **av)
 	map.arr = mapp;
 	if (get_window(&map))
 		return (write(2, "graphics connection Failed\n", 27), 1);
-	int	i = -1;
 	float	x = 0;
 	float	y = 0;
 	map.map_height = get_height(map.arr);
 	map.map_width = map_len(&map);
-	map.y_size = 1080 / get_height(map.arr);
-	map.x_size = 1920 / map_len(&map);
+	map.y_size = 768 / get_height(map.arr);// mac screen 1920x1080;
+	map.x_size = 1366 / map_len(&map);
 	player_pos(&map);
 	get_img(&map);
-	draw_img(&map, map.floor_img, get_color(87, 84, 84, 255));
-	draw_img(&map, map.wall_img, get_color(0, 0, 0, 255));
-	// draw_img(&map, map.player_img, get_color(204, 57, 9, 255));
-	player_img(&map, get_color(204, 57, 9, 255));
-	draw_img(&map, map.img, get_color(0, 0, 0, 0));
-	// line_dir(&map);
-	while (mapp[++i])
-	{
-		if (map.x_size <= 0 || map.y_size <= 0)
-    		return (2);
-		int j = 0;
-		while (mapp[i][j])
-		{
-			if (mapp[i][j] == '0')
-				mlx_image_to_window(map.mlx, map.floor_img, x, y);
-			else if (mapp[i][j] == '1')
-				mlx_image_to_window(map.mlx, map.wall_img, x, y);
-			else if (mapp[i][j] == 'N' || mapp[i][j] == 'S'
-				|| mapp[i][j] == 'E' || mapp[i][j] == 'W')
-			{
-				// put_line(&map, x, y);
-				mlx_image_to_window(map.mlx, map.floor_img, x, y);
-				mlx_image_to_window(map.mlx, map.player_img, x, y);
-			}
-			else
-				mlx_image_to_window(map.mlx, map.img, x, y);
-			x += map.x_size;
-			j++;
-		}
-		x = 0;
-		y += map.y_size;
-	}
+	draw_imgs(&map);
+	map_rendering(&map, 0, 0);
 	mlx_key_hook(map.mlx, &key_events, &map);
 	mlx_loop(map.mlx);
 	mlx_terminate(map.mlx);

@@ -1,4 +1,4 @@
-SRC= src/main.c src/assets/imgs.c src/assets/moves.c src/utils/libft.c #test.c \
+SRC= src/main.c src/assets/imgs.c src/assets/moves.c src/window.c src/utils/libft.c #test.c \
 
 OBJS= $(SRC:.c=.o)
 
@@ -11,7 +11,7 @@ CFLAGS= -Wall -Wextra -Werror
 all:$(NAME)
 
 $(NAME):$(OBJS) inc/cub3d.h
-	$(CC) $(OBJS) MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm -o $(NAME)
+	$(CC) $(OBJS) -I./MLX42/include -L./MLX42/build -lmlx42 -ldl -lglfw -pthread -lm -o $(NAME)
 
 %.o:%.c inc/cub3d.h
 	$(CC) -c $< -o $@
