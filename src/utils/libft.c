@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:05:48 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/10/28 15:56:16 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/10/31 17:53:44 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	ft_strlen(char *s)
 	if (!s)
 		return (0);
 	i = 0;
-	while (s[++i])
-		;
+	while (s[i])
+		i++;
 	return (i);
 }
 
@@ -49,30 +49,33 @@ void	player_pos(t_map *map)
 		j = 0;
 		while (map->arr[i][j])
 		{
-			
 			if (map->arr[i][j] == 'N')
 			{
 				map->player.spg_or = N;
-				map->player.x = j;
-				map->player.y = i; 
+				map->player.rotation_angle = 3 * M_PI / 2;
+				map->player.x = j * map->x_size;
+				map->player.y = i * map->y_size;
 			}
 			else if (map->arr[i][j] == 'E')
 			{
 				map->player.spg_or = E;
-				map->player.x = j;
-				map->player.y = i; 
+				map->player.rotation_angle = 0;
+				map->player.x = j * map->x_size;
+				map->player.y = i * map->y_size; 
 			}
 			else if (map->arr[i][j] == 'W')
 			{
 				map->player.spg_or = W;
-				map->player.x = j;
-				map->player.y = i; 
+				map->player.rotation_angle = M_PI;
+				map->player.x = j * map->x_size;
+				map->player.y = i * map->y_size; 
 			}
 			else if (map->arr[i][j] == 'S')
 			{
 				map->player.spg_or = S;
-				map->player.x = j;
-				map->player.y = i;
+				map->player.rotation_angle = M_PI / 2;
+				map->player.x = j * map->x_size;
+				map->player.y = i * map->y_size;
 			}
 			j++;
 		}

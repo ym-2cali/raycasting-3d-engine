@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:11:58 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/10/29 17:24:58 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/10/31 18:48:54 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@
 # include <fcntl.h>
 # include <math.h>
 
+# define ROTAT_ANGLE (M_PI / 2)
+# define MOVE_SPEED 5.0
+# define ROTAT_SPEED (3 * (M_PI / 180))
+// # define TILE_SIZE (2 * (M_PI / 180))
+
 typedef enum s_spawning_or
 {
     N,
@@ -34,6 +39,9 @@ typedef struct s_player_pos
 {
     int             x;
     int             y;
+	int				turn_direction;
+	int				walk_direction;
+	double			rotation_angle;
     t_spawning_or   spg_or; 
 }   t_player_pos;
 
@@ -64,5 +72,6 @@ void		put_line(t_map *map, int x, int y);
 void		line_dir(t_map *map, int x, int y, uint32_t color);
 void		map_rendering(t_map *map, int x, int y);
 void		draw_imgs(t_map *map);
+void 		update_player(t_map *map);
 
 #endif

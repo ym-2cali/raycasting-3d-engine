@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:02:45 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/10/29 17:24:39 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/10/31 17:45:08 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,12 @@ void	player_img(t_map *map, uint32_t color)
 	}
 }
 
-void	draw_imgs(t_map *map)
+void	draw_imgs(t_map *map)//  int fla
 {
 	draw_img(map, map->floor_img, get_color(87, 84, 84, 255));
 	draw_img(map, map->wall_img, get_color(0, 0, 0, 255));
 	// draw_img(&map, map.player_img, get_color(204, 57, 9, 255));
-	player_img(map, get_color(204, 57, 9, 255));
 	draw_img(map, map->img, get_color(0, 0, 0, 0));
+	// if (flag == 0)
+	player_img(map, get_color(204, 57, 9, 255));
 }

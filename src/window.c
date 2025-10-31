@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 17:09:09 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/10/29 17:20:16 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/10/31 17:50:05 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	map_rendering(t_map *map, int x, int y)
 				|| map->arr[i][j] == 'E' || map->arr[i][j] == 'W')
 			{
 				mlx_image_to_window(map->mlx, map->floor_img, x, y);
-				mlx_image_to_window(map->mlx, map->player_img, x, y);
+				mlx_image_to_window(map->mlx, map->player_img, map->player.x, map->player.y);
 			}
 			else
 				mlx_image_to_window(map->mlx, map->img, x, y);
