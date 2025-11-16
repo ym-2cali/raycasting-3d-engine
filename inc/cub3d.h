@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:11:58 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/11/01 15:30:52 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/11/16 02:32:38 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-// # include <string.h>
 # include <errno.h>
 # include "/home/yael-maa/cub3d/MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
 # include <math.h>
 
-# define ROTAT_ANGLE (M_PI / 2)
+// # define ROTAT_ANGLE (M_PI / 2)
 # define MOVE_SPEED 3.0
 # define ROTAT_SPEED (3 * (M_PI / 180))
+# define FOV 60
 // # define TILE_SIZE (2 * (M_PI / 180))
 
 typedef enum s_spawning_or
@@ -73,5 +73,6 @@ void		line_dir(t_map *map, int x, int y, uint32_t color);
 void		map_rendering(t_map *map, int x, int y);
 void		draw_imgs(t_map *map);
 void 		update_player(t_map *map);
+void		DDA(t_map *map, double x0, double x1, double y0, double y1);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:02:45 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/10/31 17:45:08 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/11/16 03:05:02 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	player_img(t_map *map, uint32_t color)
 	cy = map->y_size / 2;
 	r = (map->x_size < map->y_size ? map->x_size : map->y_size) / 4;
 	y = 0;
+	DDA(map, cx, cx, cy, cy - 30);
 	while (y < map->y_size)
 	{
 		x = 0;
@@ -86,12 +87,40 @@ void	player_img(t_map *map, uint32_t color)
 		{
 			dx = x - cx;
 			dy = y - cy;
-			line_dir(map, x , y, color);
+			// line_dir(map, x , y, color);
 			if (((dx * dx) + (dy * dy) <= (r * r)))
 				mlx_put_pixel(map->player_img, x, y, color);
 			x++;
 		}
 		y++;
+	}
+}
+
+void	DDA(t_map *map, double x0, double x1, double y0, double y1)
+{
+	double	dx;
+	double	dy;
+	double	x_inc;
+	double	y_inc;
+	double	steps;
+	double	x;
+	double	y;
+	int		i;
+
+	dx = x1 - x0;
+	dy = y1 - y0;
+	steps = fabs(dx) > fabs(dy) ? fabs(dx) : fabs(dy);
+	x_inc = dx / steps;
+	y_inc = dy / steps;
+	x = x0;
+	y = y0;
+	i = -1;
+	while ((++i) < steps)
+	{
+		// printf("here : x = %f , y = %f\n", x , y);
+		mlx_put_pixel(map->player_img, round(x), round(y), get_color(204, 57, 9, 255));
+		x += x_inc;
+		y += y_inc;
 	}
 }
 

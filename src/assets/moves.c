@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 17:49:56 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/11/01 15:59:49 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/11/16 02:50:25 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void 	update_player(t_map *map)
 {
+	map->player.rotation_angle += map->player.turn_direction * ROTAT_SPEED;
 	map->player.x += MOVE_SPEED * map->player.turn_direction;
 	map->player.y += MOVE_SPEED * map->player.walk_direction;
 	map->player.walk_direction = 0;
