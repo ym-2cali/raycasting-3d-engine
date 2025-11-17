@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:02:45 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/11/17 01:48:10 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/11/17 05:17:18 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	player_img(t_map *map, uint32_t color)
 		{
 			dx = x - cx;
 			dy = y - cy;
-			// line_dir(map, x , y, color);
 			if (((dx * dx) + (dy * dy) <= (r * r)))
 				mlx_put_pixel(map->player_img, x, y, color);
 			x++;
