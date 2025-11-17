@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:02:45 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/11/16 03:05:02 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/11/17 01:48:10 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	player_img(t_map *map, uint32_t color)
 	cy = map->y_size / 2;
 	r = (map->x_size < map->y_size ? map->x_size : map->y_size) / 4;
 	y = 0;
-	DDA(map, cx, cx, cy, cy - 30);
+	DDA(map, cx, cx + cos(map->player.rotation_angle) * cx, cy, cy + sin(map->player.rotation_angle) * cy);
 	while (y < map->y_size)
 	{
 		x = 0;
@@ -128,8 +128,6 @@ void	draw_imgs(t_map *map)//  int fla
 {
 	draw_img(map, map->floor_img, get_color(87, 84, 84, 255));
 	draw_img(map, map->wall_img, get_color(0, 0, 0, 255));
-	// draw_img(&map, map.player_img, get_color(204, 57, 9, 255));
 	draw_img(map, map->img, get_color(0, 0, 0, 0));
-	// if (flag == 0)
 	player_img(map, get_color(204, 57, 9, 255));
 }

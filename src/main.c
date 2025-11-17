@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:03:21 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/11/16 03:03:39 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/11/17 01:46:58 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,24 +45,9 @@ void	key_events(mlx_key_data_t keydata, void* param)
 		mlx_terminate(map->mlx);
 		exit (0);
 	}
-	else if (keydata.key == 65)
+	else if (keydata.key == 263)
 	{
 		map->player.turn_direction = -1;
-		update_player(map);
-	}
-	else if (keydata.key == 83)
-	{
-		map->player.walk_direction = 1;
-		update_player(map);
-	}
-	else if (keydata.key == 87)
-	{
-		map->player.walk_direction = -1;
-		update_player(map);
-	}
-	else if (keydata.key == 68)
-	{
-		map->player.turn_direction = 1;
 		update_player(map);
 	}
 	else if (keydata.key == 262)
@@ -70,6 +55,22 @@ void	key_events(mlx_key_data_t keydata, void* param)
 		map->player.turn_direction = 1;
 		update_player(map);
 	}
+	// else if (keydata.key == 87)
+	// {
+		
+	// }
+	// else if (keydata.key == 83)
+	// {
+		
+	// }
+	// else if (keydata.key == 65)
+	// {
+		
+	// }
+	// else if (keydata.key == 68)
+	// {
+		
+	// }
 	// printf("%d\n", keyddata.key);
 }
 
@@ -129,7 +130,7 @@ int	main(int ac, char **av)
 	    "11000000110101011100000010001",
 	    "10000000000000001100000010001",
 	    "10000000000000001101010010001",
-	    "11000001110101011111011110N0111",
+	    "11000001110101011111011110S0111",
 	    "11110111 1110101 101111010001",
 	    "11111111 1111111 111111111111",
 	    NULL
@@ -150,7 +151,7 @@ int	main(int ac, char **av)
 	get_img(&map);
 	draw_imgs(&map);
 	map_rendering(&map, 0, 0);
-	// mlx_key_hook(map.mlx, &key_events, &map);
+	mlx_key_hook(map.mlx, &key_events, &map);
 	mlx_loop(map.mlx);
 	mlx_terminate(map.mlx);
 	return (0);

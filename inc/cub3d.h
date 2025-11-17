@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:11:58 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/11/16 02:32:38 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/11/17 01:44:44 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ typedef enum s_spawning_or
 
 typedef struct s_player_pos
 {
-    int             x;
-    int             y;
+    double          x;
+    double			y;
 	int				turn_direction;
 	int				walk_direction;
 	double			rotation_angle;
