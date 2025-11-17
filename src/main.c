@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:03:21 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/11/17 01:46:58 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/11/17 03:48:22 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,66 +36,25 @@ int	get_window(t_map *map)
 	return (0);
 }
 
-void	key_events(mlx_key_data_t keydata, void* param)
+void	key_events(void* param)
 {
 	t_map *map = (t_map *)param;
 
-	if (keydata.key == 256)
+	if (mlx_is_key_down(map->mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_terminate(map->mlx);
 		exit (0);
 	}
-	else if (keydata.key == 263)
-	{
+	if (mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
 		map->player.turn_direction = -1;
-		update_player(map);
-	}
-	else if (keydata.key == 262)
-	{
+	if (mlx_is_key_down(map->mlx, MLX_KEY_RIGHT))
 		map->player.turn_direction = 1;
-		update_player(map);
-	}
-	// else if (keydata.key == 87)
-	// {
-		
-	// }
-	// else if (keydata.key == 83)
-	// {
-		
-	// }
-	// else if (keydata.key == 65)
-	// {
-		
-	// }
-	// else if (keydata.key == 68)
-	// {
-		
-	// }
-	// printf("%d\n", keyddata.key);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_W))
+		map->player.walk_direction = 1;
+	if (mlx_is_key_down(map->mlx, MLX_KEY_S))
+		map->player.walk_direction = -1;
+	update_player(map);
 }
-
-// void key_events(mlx_key_data_t keydata, void *param)
-// {
-//     t_map *map = (t_map *)param;
-
-//     if (keydata.key == 256 && keydata.action == 1) // ESC
-//         mlx_terminate(map->mlx);
-
-//     // Press
-//     if (keydata.action == 1)
-//     {
-//         if (keydata.key == 87) map->player.walk_direction = 1;   // W
-//         if (keydata.key == 83) map->player.walk_direction = -1;  // S
-//         if (keydata.key == 65) map->player.turn_direction = -1;  // A
-//         if (keydata.key == 68) map->player.turn_direction = 1;   // D
-//     }
-//     // Release
-//     else if (keydata.action == 0)
-//     {
-//         if (keydata.key == 87 || keydata.key == 83) map->player.walk_direction = 0;
-//         if (keydata.key == 65 || keydata.key == 68) map->player.turn_direction = 0;
-//     }
-// }
 
 int	map_len(t_map *map)
 {
@@ -151,7 +110,7 @@ int	main(int ac, char **av)
 	get_img(&map);
 	draw_imgs(&map);
 	map_rendering(&map, 0, 0);
-	mlx_key_hook(map.mlx, &key_events, &map);
+	mlx_loop_hook(map.mlx, &key_events, &map);
 	mlx_loop(map.mlx);
 	mlx_terminate(map.mlx);
 	return (0);

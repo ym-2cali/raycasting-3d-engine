@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 17:09:09 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/11/01 15:48:59 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/11/17 03:48:31 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	map_rendering(t_map *map, int x, int y)
 	i = -1;
 	while (map->arr[++i])
 	{
-		// if (map->x_size <= 0 || map->y_size <= 0)
-    	// 	return (2);
 		j = 0;
 		while (map->arr[i][j])
 		{

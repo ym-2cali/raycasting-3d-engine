@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:11:58 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/11/17 01:44:44 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/11/17 03:23:18 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ void		map_rendering(t_map *map, int x, int y);
 void		draw_imgs(t_map *map);
 void 		update_player(t_map *map);
 void		DDA(t_map *map, double x0, double x1, double y0, double y1);
+void		move_forward(t_map *map);
 
 #endif
