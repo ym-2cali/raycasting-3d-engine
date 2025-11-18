@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:02:45 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/11/17 05:17:18 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/11/18 01:42:20 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	get_img(t_map *map)
 	map->floor_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
 	map->wall_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
 	map->img = mlx_new_image(map->mlx, map->x_size, map->y_size);
-	map->player_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
+	map->player_img = mlx_new_image(map->mlx, map->x_size / 2, map->y_size / 2);
 }
 
 void	draw_img(t_map *map, mlx_image_t* img, uint32_t color)
@@ -69,25 +69,23 @@ void	player_img(t_map *map, uint32_t color)
 {
 	int	cx;
 	int	cy;
-	int	r;
 	int	y;
 	int	x;
 	int	dx;
 	int	dy;
 
-	cx = map->x_size / 2;
-	cy = map->y_size / 2;
-	r = (map->x_size < map->y_size ? map->x_size : map->y_size) / 4;
+	cx = TILE_SIZE / 4;
+	cy = TILE_SIZE / 4;
 	y = 0;
-	DDA(map, cx, cx + cos(map->player.rotation_angle) * cx, cy, cy + sin(map->player.rotation_angle) * cy);
-	while (y < map->y_size)
+	// DDA(map, cx, cx + cos(map->player.rotation_angle) * cx, cy, cy + sin(map->player.rotation_angle) * cy);
+	while (y < map->y_size / 2)
 	{
 		x = 0;
-		while(x < map->x_size)
+		while(x < map->x_size / 2)
 		{
 			dx = x - cx;
 			dy = y - cy;
-			if (((dx * dx) + (dy * dy) <= (r * r)))
+			if (((dx * dx) + (dy * dy) <= (map->rad * map->rad)))
 				mlx_put_pixel(map->player_img, x, y, color);
 			x++;
 		}
