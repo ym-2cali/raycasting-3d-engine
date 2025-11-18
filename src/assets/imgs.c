@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:02:45 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/11/18 01:42:20 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/11/18 11:05:59 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	get_img(t_map *map)
 	map->wall_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
 	map->img = mlx_new_image(map->mlx, map->x_size, map->y_size);
 	map->player_img = mlx_new_image(map->mlx, map->x_size / 2, map->y_size / 2);
+	map->dir_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
 }
 
 void	draw_img(t_map *map, mlx_image_t* img, uint32_t color)
@@ -115,7 +116,7 @@ void	DDA(t_map *map, double x0, double x1, double y0, double y1)
 	while ((++i) < steps)
 	{
 		// printf("here : x = %f , y = %f\n", x , y);
-		mlx_put_pixel(map->player_img, round(x), round(y), get_color(204, 57, 9, 255));
+		mlx_put_pixel(map->dir_img, round(x), round(y), get_color(204, 57, 9, 255));
 		x += x_inc;
 		y += y_inc;
 	}
