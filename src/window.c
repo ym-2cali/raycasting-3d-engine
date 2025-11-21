@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 17:09:09 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/11/18 11:05:56 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/11/21 19:10:28 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ void	map_rendering(t_map *map, int x, int y)
 		y += map->y_size;
 	}
 	// mlx_image_to_window(map->mlx, map->dir_img, map->player.x, map->player.y);
-	mlx_image_to_window(map->mlx, map->player_img, map->player.x, map->player.y);
+	mlx_image_to_window(map->mlx, map->player_img, map->player.x - TILE_SIZE / 2, map->player.y - TILE_SIZE / 2);
 }

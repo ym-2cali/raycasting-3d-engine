@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:05:48 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/11/18 10:23:15 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/11/21 19:10:00 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +53,29 @@ void	player_pos(t_map *map)
 			{
 				map->player.spg_or = N;
 				map->player.rotation_angle = 3 * M_PI / 2;
-				map->player.x = j * map->x_size + (map->x_size / 2) - map->rad;
-				map->player.y = i * map->y_size + (map->x_size / 2) - map->rad;
+				map->player.x = j * TILE_SIZE + TILE_SIZE / 2;
+				map->player.y = i * TILE_SIZE + TILE_SIZE / 2;
 			}
 			else if (map->arr[i][j] == 'E')
 			{
 				map->player.spg_or = E;
 				map->player.rotation_angle = 0;
-				map->player.x = j * map->x_size + (map->x_size / 2) - map->rad;
-				map->player.y = i * map->y_size + (map->x_size / 2) - map->rad;
+				map->player.x = j * TILE_SIZE + TILE_SIZE / 2;
+				map->player.y = i * TILE_SIZE + TILE_SIZE / 2;
 			}
 			else if (map->arr[i][j] == 'W')
 			{
 				map->player.spg_or = W;
 				map->player.rotation_angle = M_PI;
-				map->player.x = j * map->x_size + (map->x_size / 2) - map->rad;
-				map->player.y = i * map->y_size + (map->x_size / 2) - map->rad;
+				map->player.x = j * TILE_SIZE + TILE_SIZE / 2;
+				map->player.y = i * TILE_SIZE + TILE_SIZE / 2;
 			}
 			else if (map->arr[i][j] == 'S')
 			{
 				map->player.spg_or = S;
 				map->player.rotation_angle = M_PI / 2;
-				map->player.x = j * map->x_size + (map->x_size / 2) - map->rad;
-				map->player.y = i * map->y_size + (map->x_size / 2) - map->rad;
+				map->player.x = j * TILE_SIZE + TILE_SIZE / 2;
+				map->player.y = i * TILE_SIZE + TILE_SIZE / 2;
 			}
 			j++;
 		}
