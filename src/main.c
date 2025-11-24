@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:03:21 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/11/18 01:33:37 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/11/24 01:22:19 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ int	main(int ac, char **av)
 	map.map_width = map_len(&map);
 	if (get_window(&map))
 		return (write(2, "graphics connection Failed\n", 27), 1);
-	float	x = 0;
-	float	y = 0;
+	double	x = 0;
+	double	y = 0;
 	map.y_size = TILE_SIZE;
 	map.x_size = TILE_SIZE;
 	map.rad = (map.x_size < map.y_size ? map.x_size : map.y_size) / 4;
