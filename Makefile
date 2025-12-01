@@ -1,4 +1,4 @@
-SRC= src/main.c src/assets/imgs.c src/assets/moves.c src/window.c src/utils/libft.c #test.c \
+SRC= src/main.c src/assets/imgs.c src/assets/moves.c src/assets/ray_caster.c src/window.c src/utils/libft.c #test.c \
 
 OBJS= $(SRC:.c=.o)
 

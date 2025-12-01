@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:11:58 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/11/18 01:30:29 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/01 03:33:49 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ typedef struct s_player_pos
     t_spawning_or   spg_or; 
 }   t_player_pos;
 
+typedef struct s_inter
+{
+	double	x;
+	double	y;
+} t_inter;
+
 typedef struct s_map
 {
 	void*			mlx;
@@ -56,6 +62,7 @@ typedef struct s_map
 	mlx_image_t*	player_img;
 	mlx_image_t*	dir_img;
 	t_player_pos	player;
+	t_inter			inter;
 	int				map_height;
 	int				map_width;
 	int				x_size;
@@ -77,5 +84,5 @@ void		draw_imgs(t_map *map);
 void 		update_player(t_map *map);
 void		DDA(t_map *map, double x0, double x1, double y0, double y1);
 void		move_forward(t_map *map);
-
+void		ray_caster(t_map *map);
 #endif

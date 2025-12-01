@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:02:45 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/11/21 19:12:34 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/01 02:04:36 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	get_img(t_map *map)
 	map->wall_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
 	map->img = mlx_new_image(map->mlx, map->x_size, map->y_size);
 	map->player_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
-	// map->dir_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
+	map->dir_img = mlx_new_image(map->mlx, map->map_width * TILE_SIZE, map->map_height * TILE_SIZE);
 }
 
 void	draw_img(t_map *map, mlx_image_t* img, uint32_t color)
@@ -77,7 +77,7 @@ void	player_img(t_map *map, uint32_t color)
 
 	cx = TILE_SIZE / 2;
 	cy = TILE_SIZE / 2;
-	DDA(map, TILE_SIZE / 2, TILE_SIZE / 2 + cos(map->player.rotation_angle) * 16, TILE_SIZE / 2, TILE_SIZE / 2 + sin(map->player.rotation_angle) * 16);
+	// DDA(map, TILE_SIZE / 2, TILE_SIZE / 2 + cos(map->player.rotation_angle) * 16, TILE_SIZE / 2, TILE_SIZE / 2 + sin(map->player.rotation_angle) * 16);
 	y = 0;
 	while (y < map->y_size)
 	{
@@ -116,7 +116,7 @@ void	DDA(t_map *map, double x0, double x1, double y0, double y1)
 	while ((++i) < steps)
 	{
 		// printf("here : x = %f , y = %f\n", x , y);
-		mlx_put_pixel(map->player_img, round(x), round(y), get_color(204, 57, 9, 255));
+		mlx_put_pixel(map->dir_img, round(x), round(y), get_color(204, 57, 9, 255));
 		x += x_inc;
 		y += y_inc;
 	}
@@ -128,4 +128,5 @@ void	draw_imgs(t_map *map)//  int fla
 	draw_img(map, map->wall_img, get_color(0, 0, 0, 255));
 	draw_img(map, map->img, get_color(0, 0, 0, 0));
 	player_img(map, get_color(204, 57, 9, 255));
+	ray_caster(map);
 }
