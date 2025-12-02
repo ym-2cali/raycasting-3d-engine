@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:02:45 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/01 02:04:36 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/02 16:53:24 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ void	DDA(t_map *map, double x0, double x1, double y0, double y1)
 	i = -1;
 	while ((++i) < steps)
 	{
-		// printf("here : x = %f , y = %f\n", x , y);
 		mlx_put_pixel(map->dir_img, round(x), round(y), get_color(204, 57, 9, 255));
 		x += x_inc;
 		y += y_inc;

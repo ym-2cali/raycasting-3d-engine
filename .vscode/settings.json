@@ -3,6 +3,7 @@
     "files.associations": {
         "math.h": "c",
         "cstdint": "c",
-        "errno.h": "c"
+        "errno.h": "c",
+        "cmath": "c"
     }
 }

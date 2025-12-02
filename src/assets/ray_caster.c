@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 00:38:08 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/01 04:34:08 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/02 18:28:04 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,58 @@ double	first_inter(t_map *map,double *angle)
 {
 	double	yf;
 	double	xf;
-	double adj;
+	double	adj;
 	
 	if (*angle > 0 && *angle < M_PI)
-		yf = trunc(map->player.y / 32) * 32 + 32;
-	else
-		yf = trunc(map->player.y / 32) * 32;
-		xf = map->player.x + fabs(map->player.y - yf)/ tan(*angle);
-		DDA(map, map->player.x, xf, map->player.y, yf);
-		map->inter.x = xf;
-		map->inter.y = yf;
-		return (fabs(map->player.y - yf) / sin(*angle));
-	}
-	void	ray_caster(t_map *map)
 	{
-		double	angle = map->player.rotation_angle - (30 * M_PI / 180);
-		double	s_angle = map->player.rotation_angle + (30 * M_PI / 180);
-		while (angle < s_angle)
-		{
-			first_inter(map, &angle);
-			angle += (60 * M_PI / 180) / 320; 
-		}
+		yf = trunc(map->player.y / 32) * 32 + 32;
+		xf = map->player.x + (map->player.y - yf) / tan(*angle);
+	}
+	else
+	{
+		yf = trunc(map->player.y / 32) * 32;
+		xf = map->player.x - (map->player.y - yf) / tan(*angle);
+	}
+	// printf("%f === %f\n",xf,yf);
+	DDA(map, map->player.x, xf, map->player.y, yf);
+	map->inter.x = xf;
+	map->inter.y = yf;
+	return (fabs(map->player.y - yf) / fabs(sin(*angle)));
+}
+
+double	hor_sample(t_map *map, double *angle)
+{
+	double	x_step;
+	double	y_step;
+
+	y_step = TILE_SIZE;
+	x_step = TILE_SIZE / tan(*angle);
+	if (*angle > 0 && *angle < M_PI / 2)
+		DDA(map, map->inter.x, map->inter.x + x_step, map->inter.y, map->inter.y + y_step);
+	else if (*angle > M_PI / 2 && *angle < M_PI)
+		DDA(map, map->inter.x, map->inter.x - x_step, map->inter.y, map->inter.y + y_step);
+	else if (*angle > M_PI  && *angle < (3 * M_PI / 2))
+		DDA(map, map->inter.x, map->inter.x - x_step, map->inter.y, map->inter.y - y_step);
+	else if (*angle > (3 * M_PI / 2) && *angle < 2 * M_PI)
+		DDA(map, map->inter.x, map->inter.x + x_step, map->inter.y, map->inter.y - y_step);
+	// if (*angle == M_PI / 2)
+	// 	DDA(map, map->inter.x, map->inter.x, map->inter.y, map->inter.y + TILE_SIZE);
+	return (fabs(TILE_SIZE / sin(*angle)));
+}
+
+void	ray_caster(t_map *map)
+{
+	double	angle;
+	double	s_angle;
+
+	// map->player.rotation_angle - (30 * M_PI / 180)
+	angle = map->player.rotation_angle - (30 * M_PI / 180);
+	s_angle = map->player.rotation_angle + (30 * M_PI / 180);
+	while (angle < s_angle/ 2)
+	{
+		first_inter(map, &angle);
+		// hor_sample(map, &angle);
+		// if (angle < s_angle)
+		angle += (60 * M_PI / 180) / 320;
+	}
 }
