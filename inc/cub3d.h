@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:11:58 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/01 03:33:49 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/07 22:31:25 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define TILE_SIZE 32 
 # define MOVE_SPEED 3.0
 # define ROTAT_SPEED (3 * (M_PI / 180))
-# define FOV 60
+# define FOV 60 * (M_PI / 180)
 // # define TILE_SIZE (2 * (M_PI / 180))
 
 typedef enum s_spawning_or

@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:02:45 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/02 16:53:24 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/07 23:43:23 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,12 @@ void	DDA(t_map *map, double x0, double x1, double y0, double y1)
 
 	dx = x1 - x0;
 	dy = y1 - y0;
+	printf("DDA from (%f, %f) to (%f, %f)\n", x0, y0, x1, y1);
 	steps = fabs(dx) > fabs(dy) ? fabs(dx) : fabs(dy);
 	x_inc = dx / steps;
 	y_inc = dy / steps;
+	printf("steps: %f\n", steps);
+	printf("x_inc: %f, y_inc: %f\n", x_inc, y_inc);
 	x = x0;
 	y = y0;
 	i = -1;
