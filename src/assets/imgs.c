@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:02:45 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/10 03:11:08 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/10 04:08:44 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,10 @@ double	DDA(t_map *map, double x0, double x1, double y0, double y1)
 		x += x_inc;
 		y += y_inc;
 	}
-	return (fabs(sqrt(pow((x1 - x0), 2) + pow((y1 - y0), 2))));
+	return (sqrt(pow(fabs(x1 - x0), 2) + pow(fabs(y1 - y0), 2)));
 }
 
-void	draw_imgs(t_map *map)//  int fla
+void	draw_imgs(t_map *map)
 {
 	draw_img(map, map->floor_img, get_color(87, 84, 84, 255));
 	draw_img(map, map->wall_img, get_color(0, 0, 0, 255));

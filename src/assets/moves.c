@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 17:49:56 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/10 03:12:44 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/10 08:42:43 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,44 @@ int	check_wall(t_map *map, double x, double y)
 void 	update_player(t_map *map)
 {
 	double	move_steps;
+	double	angle;
 	double	x;
 	double	y;
 
-	move_steps = map->player.walk_direction * MOVE_SPEED;
+	if (map->f != 0)
+	    move_steps = MOVE_SPEED;
+	else
+    	move_steps = map->player.walk_direction * MOVE_SPEED;
 	map->player.rotation_angle += (map->player.turn_direction * ROTAT_SPEED);
 	if (map->player.rotation_angle < 0)
 		map->player.rotation_angle += 2 * M_PI;
     if (map->player.rotation_angle > 2 * M_PI)
 		map->player.rotation_angle -= 2 * M_PI;
-	x = map->player.x + cos(map->player.rotation_angle) * move_steps;
-	y = map->player.y + sin(map->player.rotation_angle) * move_steps;
+	if (map->f == 0)
+	{
+		x = map->player.x + cos(map->player.rotation_angle) * move_steps;
+		y = map->player.y + sin(map->player.rotation_angle) * move_steps;
+	}
+	else if (map->f == 1)
+	{
+		angle = map->player.rotation_angle - (M_PI / 2);
+		if (angle <= 0)
+			angle += 2 * M_PI;
+    	if (angle > 2 * M_PI)
+			angle -= 2 * M_PI;
+		x = map->player.x + cos(angle) * move_steps;
+		y = map->player.y + sin(angle) * move_steps;		
+	}
+	else if (map->f == 2)
+	{
+		angle = map->player.rotation_angle + (M_PI / 2);
+		if (angle <= 0)
+			angle += 2 * M_PI;
+    	if (angle > 2 * M_PI)
+			angle -= 2 * M_PI;
+		x = map->player.x + cos(angle) * move_steps;
+		y = map->player.y + sin(angle) * move_steps;
+	}
 	if (check_wall(map, x, y))
 	{	
 		map->player.x = x;
@@ -91,4 +118,5 @@ void 	update_player(t_map *map)
 	}
 	map->player.walk_direction = 0;
 	map->player.turn_direction = 0;
+	map->f = 0;
 }

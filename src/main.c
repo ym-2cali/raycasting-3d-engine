@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:03:21 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/10 02:31:45 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/10 08:41:39 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ void	key_events(void* param)
 		map->player.walk_direction = 1;
 	if (mlx_is_key_down(map->mlx, MLX_KEY_S))
 		map->player.walk_direction = -1;
+	if (mlx_is_key_down(map->mlx, MLX_KEY_A))
+		map->f = 1;
+	if (mlx_is_key_down(map->mlx, MLX_KEY_D))
+		map->f = 2;
 	update_player(map);
 }
 
@@ -78,26 +82,21 @@ t_player_facing	player_facing(double *angle, int flag)
 {
     double a = *angle;
 
-    // Normalize angle to [0, 2π]
     while (a < 0)
         a += 2 * M_PI;
     while (a >= 2 * M_PI)
         a -= 2 * M_PI;
-
-    // Horizontal check: UP or DOWN
     if (flag == 1)
     {
         if (a > 0 && a < M_PI)
-            return (DOWN);  // Facing downward
+            return (DOWN);
         else
-            return (UP);    // Facing upward
+            return (UP);
     }
-
-    // Vertical check: RIGHT or LEFT
     if (a < M_PI_2 || a > 3 * M_PI_2)
-        return (RIGHT);     // Facing right
+        return (RIGHT);
     else
-        return (LEFT);      // Facing left
+        return (LEFT);
 }
 
 
