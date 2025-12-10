@@ -1,120 +1,99 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ray_caster.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/01 00:38:08 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/08 01:01:31 by yael-maa         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../inc/cub3d.h"
-// reset angle after any change
-double	first_inter(t_map *map,double *angle)
+
+static int is_wall(t_map *map, double x, double y)
 {
-	double	yf;
-	double	xf;
-	double	adj;
-  
-	if (*angle >= ((M_PI / 2)  - (FOV / 2))  && *angle < ((M_PI / 2)  + (FOV / 2)))
-	{
-		printf("here 1\n");
-		yf = trunc(map->player.y / 32) * 32 + 32;
-		xf = map->player.x - ((map->player.y - yf) / tan(*angle));
-	}
-	else if (*angle >= (3 * M_PI / 2) - (FOV / 2)  && *angle < (3 * M_PI / 2) + (FOV / 2))
-	{
-		printf("here 3\n");
-		yf = trunc(map->player.y / 32) * 32;
-		xf = map->player.x + (map->player.y - yf) / tan(*angle);
-	}
-	else if (cos(*angle) < 0)
-	{
-		// printf("py = %f\n");
-		xf = floor(map->player.x / 32) * 32;
-		yf = map->player.y + (map->player.x - xf) * tan(*angle);
-	}
-	else if (cos(*angle) > 0)   // EAST
-	{
-	    xf = floor(map->player.x / 32) * 32 + 32;
-	    yf = map->player.y + (xf - map->player.x) * tan(*angle);
-	}
-	// printf("%f === %f\n",xf,yf);
-	DDA(map, map->player.x, xf, map->player.y, yf);
-	map->inter.x = xf;
-	map->inter.y = yf;
-	return (fabs(map->player.y - yf) / fabs(sin(*angle)));
+    int mx = (int)(x / TILE_SIZE);
+    int my = (int)(y / TILE_SIZE);
+
+    if (mx < 0 || my < 0 || my >= map->map_height || mx >= (int)ft_strlen(map->arr[my]))
+        return (1);
+    return (map->arr[my][mx] == '1');
 }
 
-double	hor_sample(t_map *map, double *angle)
+static double horizontal_intersection(t_map *map, double angle, double *hit_x, double *hit_y)
 {
-	double	x_step;
-	double	y_step;
+    double y_inter, x_inter;
+    double y_step, x_step;
 
-	y_step = TILE_SIZE;
-	x_step = TILE_SIZE / tan(*angle);
-	if (*angle > 0 && *angle < M_PI / 2)
-		DDA(map, map->inter.x, map->inter.x + x_step, map->inter.y, map->inter.y + y_step);
-	else if (*angle > M_PI / 2 && *angle < M_PI)
-		DDA(map, map->inter.x, map->inter.x - x_step, map->inter.y, map->inter.y + y_step);
-	else if (*angle > M_PI  && *angle < (3 * M_PI / 2))
-		DDA(map, map->inter.x, map->inter.x - x_step, map->inter.y, map->inter.y - y_step);
-	else if (*angle > (3 * M_PI / 2) && *angle < 2 * M_PI)
-		DDA(map, map->inter.x, map->inter.x + x_step, map->inter.y, map->inter.y - y_step);
-	// if (*angle == M_PI / 2)
-	// 	DDA(map, map->inter.x, map->inter.x, map->inter.y, map->inter.y + TILE_SIZE);
-	return (fabs(TILE_SIZE / sin(*angle)));
+    int facing_down = (angle > 0 && angle < M_PI);
+    int facing_up = !facing_down;
+    y_inter = floor(map->player.y / TILE_SIZE) * TILE_SIZE;
+    if (facing_down) 
+		y_inter += TILE_SIZE;
+    else
+		y_inter -= 0.0001;
+    x_inter = map->player.x + (y_inter - map->player.y) / tan(angle);
+    y_step = facing_down ? TILE_SIZE : -TILE_SIZE;
+    x_step = y_step / tan(angle);
+    while (x_inter >= 0 && y_inter >= 0 &&
+           x_inter < map->map_width * TILE_SIZE &&
+           y_inter < map->map_height * TILE_SIZE)
+    {
+        if (is_wall(map, x_inter, y_inter))
+        {
+            *hit_x = x_inter;
+            *hit_y = y_inter;
+            return hypot(x_inter - map->player.x, y_inter - map->player.y);
+        }
+        x_inter += x_step;
+        y_inter += y_step;
+    }
+    return 1e30;
 }
 
-void	ray_caster(t_map *map)
+double vertical_intersection(t_map *map, double angle, double *hit_x, double *hit_y)
 {
-	double	angle;
-	double	s_angle;
-	double	m_angle;
+    double y_inter, x_inter;
+    double y_step, x_step;
 
-	// map->player.rotation_angle - (30 * M_PI / 180)
-	angle = map->player.rotation_angle - (30 * M_PI / 180);
-	s_angle = map->player.rotation_angle + (30 * M_PI / 180);
-	if (s_angle >= 0 && s_angle <= FOV / 2)
-	{
-		while (angle < 2 * M_PI)
-		{
-			if (angle >= 2 * M_PI)
-				angle -= (2 * M_PI);
-			else if (angle < 0)
-				angle += (2 * M_PI);
-			first_inter(map, &angle);
-			// hor_sample(map, &angle);
-			// if (angle < s_angle)
-			angle += (60 * M_PI / 180) / 320;
-		}
-		angle = 0;
-		while (angle < FOV / 2)
-		{
-			if (angle >= 2 * M_PI)
-				angle -= (2 * M_PI);
-			else if (angle < 0)
-				angle += (2 * M_PI);
-			first_inter(map, &angle);
-			// hor_sample(map, &angle);
-			// if (angle < s_angle)
-			angle += (60 * M_PI / 180) / 320;
-		}
-	}
-	else
-	{
-		while (angle < s_angle)
-		{
-			if (angle >= 2 * M_PI)
-			angle -= (2 * M_PI);
-			else if (angle < 0)
-			angle += (2 * M_PI);
-			first_inter(map, &angle);
-			// hor_sample(map, &angle);
-			// if (angle < s_angle)
-			angle += (60 * M_PI / 180) / 320;
-		}
-	}
+    int facing_right = (angle < M_PI_2 || angle > 3*M_PI_2);
+    int facing_left = !facing_right;
+    x_inter = floor(map->player.x / TILE_SIZE) * TILE_SIZE;
+    if (facing_right)
+		x_inter += TILE_SIZE;
+    else
+		x_inter -= 0.0001;
+    y_inter = map->player.y + (x_inter - map->player.x) * tan(angle);
+    x_step = facing_right ? TILE_SIZE : -TILE_SIZE;
+    y_step = x_step * tan(angle);
+    while (x_inter >= 0 && y_inter >= 0 &&
+           x_inter < map->map_width * TILE_SIZE &&
+           y_inter < map->map_height * TILE_SIZE)
+    {
+        if (is_wall(map, x_inter, y_inter))
+        {
+            *hit_x = x_inter;
+            *hit_y = y_inter;
+            return hypot(x_inter - map->player.x, y_inter - map->player.y);
+        }
+        x_inter += x_step;
+        y_inter += y_step;
+    }
+    return 1e30;
+}
+
+void ray_caster(t_map *map)
+{
+    double start_angle = map->player.rotation_angle - (FOV / 2);
+    double ray_angle;
+    double hor_x, hor_y, ver_x, ver_y;
+    double hor_dist, ver_dist;
+    int n_rays = 320;
+	int i;
+
+	i = -1;
+    while ((++i) < n_rays)
+    {
+        ray_angle = start_angle + (i * (FOV / n_rays));
+        if (ray_angle < 0)
+			ray_angle += 2 * M_PI;
+        if (ray_angle > 2 * M_PI)
+			ray_angle -= 2 * M_PI;
+        hor_dist = horizontal_intersection(map, ray_angle, &hor_x, &hor_y);
+        ver_dist = vertical_intersection(map, ray_angle, &ver_x, &ver_y);
+        if (hor_dist < ver_dist)
+            DDA(map, map->player.x, hor_x, map->player.y, hor_y);
+        else
+            DDA(map, map->player.x, ver_x, map->player.y, ver_y);
+    }
 }

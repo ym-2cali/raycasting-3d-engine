@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:03:21 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/08 01:02:29 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/10 02:31:45 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,33 @@ int	map_len(t_map *map)
 	return (len);
 }
 
+t_player_facing	player_facing(double *angle, int flag)
+{
+    double a = *angle;
+
+    // Normalize angle to [0, 2π]
+    while (a < 0)
+        a += 2 * M_PI;
+    while (a >= 2 * M_PI)
+        a -= 2 * M_PI;
+
+    // Horizontal check: UP or DOWN
+    if (flag == 1)
+    {
+        if (a > 0 && a < M_PI)
+            return (DOWN);  // Facing downward
+        else
+            return (UP);    // Facing upward
+    }
+
+    // Vertical check: RIGHT or LEFT
+    if (a < M_PI_2 || a > 3 * M_PI_2)
+        return (RIGHT);     // Facing right
+    else
+        return (LEFT);      // Facing left
+}
+
+
 int	main(int ac, char **av)
 {
 	t_map map;
@@ -89,7 +116,7 @@ int	main(int ac, char **av)
 	    "11000000110101011100000010001",
 	    "10000000000000001100000000001",
 	    "10000000000000001101010000001",
-	    "11000001110101011111011000S0111",
+	    "11000001110101011111011000W0111",
 	    "11110111 1110101 101111000001",
 	    "11111111 1111111 111111111111",
 	    NULL

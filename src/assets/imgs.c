@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:02:45 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/07 23:43:23 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/10 03:11:08 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,23 @@ void	get_img(t_map *map)
 	map->img = mlx_new_image(map->mlx, map->x_size, map->y_size);
 	map->player_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
 	map->dir_img = mlx_new_image(map->mlx, map->map_width * TILE_SIZE, map->map_height * TILE_SIZE);
+}
+
+void	clear_dir_img(t_map *map)
+{
+	int x;
+	int y;
+	int w = map->map_width * map->x_size;
+	int h = map->map_height * map->y_size;
+
+	y = 0;
+	while (y < h)
+	{
+		x = 0;
+		while (x < w)
+			mlx_put_pixel(map->dir_img, x++, y, get_color(0, 0, 0, 0));
+		y++;
+	}
 }
 
 void	draw_img(t_map *map, mlx_image_t* img, uint32_t color)
@@ -94,7 +111,7 @@ void	player_img(t_map *map, uint32_t color)
 	}
 }
 
-void	DDA(t_map *map, double x0, double x1, double y0, double y1)
+double	DDA(t_map *map, double x0, double x1, double y0, double y1)
 {
 	double	dx;
 	double	dy;
@@ -107,12 +124,9 @@ void	DDA(t_map *map, double x0, double x1, double y0, double y1)
 
 	dx = x1 - x0;
 	dy = y1 - y0;
-	printf("DDA from (%f, %f) to (%f, %f)\n", x0, y0, x1, y1);
 	steps = fabs(dx) > fabs(dy) ? fabs(dx) : fabs(dy);
 	x_inc = dx / steps;
 	y_inc = dy / steps;
-	printf("steps: %f\n", steps);
-	printf("x_inc: %f, y_inc: %f\n", x_inc, y_inc);
 	x = x0;
 	y = y0;
 	i = -1;
@@ -122,6 +136,7 @@ void	DDA(t_map *map, double x0, double x1, double y0, double y1)
 		x += x_inc;
 		y += y_inc;
 	}
+	return (fabs(sqrt(pow((x1 - x0), 2) + pow((y1 - y0), 2))));
 }
 
 void	draw_imgs(t_map *map)//  int fla

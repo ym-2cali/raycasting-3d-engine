@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:11:58 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/07 22:31:25 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/10 03:12:20 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@ typedef enum s_spawning_or
     W,
     S,
 }   t_spawning_or;
+
+typedef enum s_player_facing
+{
+    UP,
+    DOWN,
+    RIGHT,
+    LEFT,
+}   t_player_facing;
 
 typedef struct s_player_pos
 {
@@ -73,6 +81,7 @@ typedef struct s_map
 void		player_img(t_map *map, uint32_t color);
 void		draw_img(t_map *map, mlx_image_t* img, uint32_t color);
 void		get_img(t_map *map);
+void		clear_dir_img(t_map *map);
 void		ft_bzero(void *s, size_t n);
 int			ft_strlen(char *s);
 void		player_pos(t_map *map);
@@ -82,7 +91,10 @@ void		line_dir(t_map *map, int x, int y, uint32_t color);
 void		map_rendering(t_map *map, int x, int y);
 void		draw_imgs(t_map *map);
 void 		update_player(t_map *map);
-void		DDA(t_map *map, double x0, double x1, double y0, double y1);
+double		DDA(t_map *map, double x0, double x1, double y0, double y1);
 void		move_forward(t_map *map);
 void		ray_caster(t_map *map);
+int			check_wall(t_map *map, double x, double y);
+t_player_facing	player_facing(double *angle, int flag);
+
 #endif
