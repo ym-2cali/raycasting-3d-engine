@@ -72,6 +72,29 @@ double vertical_intersection(t_map *map, double angle, double *hit_x, double *hi
     return 1e30;
 }
 
+void draw_wall(t_map *map, int x,double wall_dis)
+{
+    int y = 0;
+    int wall_start = map->map_height *  TILE_SIZE / 2 - (int) wall_dis;
+    int wall_end = map->map_height *  TILE_SIZE / 2 +  (int)wall_dis;
+    if(wall_start < 0)
+        wall_start = 0;
+    if(wall_end > map->map_height *  TILE_SIZE)
+        wall_end = map->map_height *  TILE_SIZE;
+    while(y < wall_start)
+    {
+        mlx_put_pixel(map->dir_img, x, y++, get_color(255, 255, 255, 255));
+    }
+    while(wall_start < wall_end)
+    {
+        mlx_put_pixel(map->dir_img, x, wall_start++, get_color(0, 0, 255, 255));
+    }
+    while(wall_end < map->map_height *  TILE_SIZE)
+    {
+        mlx_put_pixel(map->dir_img, x, wall_end++, get_color(255, 255, 255, 255));
+    }
+}
+
 void ray_caster(t_map *map)
 {
     double start_angle = map->player.rotation_angle - (FOV / 2);
@@ -80,20 +103,23 @@ void ray_caster(t_map *map)
     double hor_dist, ver_dist;
     int n_rays = 320;
 	int i;
-
+    double wall_dis;
 	i = -1;
-    while ((++i) < n_rays)
+    while ((++i) < map->map_width * TILE_SIZE)
     {
-        ray_angle = start_angle + (i * (FOV / n_rays));
+        ray_angle = start_angle + (i * (FOV / (map->map_width * TILE_SIZE)));
         if (ray_angle < 0)
 			ray_angle += 2 * M_PI;
         if (ray_angle > 2 * M_PI)
 			ray_angle -= 2 * M_PI;
         hor_dist = horizontal_intersection(map, ray_angle, &hor_x, &hor_y);
         ver_dist = vertical_intersection(map, ray_angle, &ver_x, &ver_y);
-        if (hor_dist < ver_dist)
-            DDA(map, map->player.x, hor_x, map->player.y, hor_y);
-        else
-            DDA(map, map->player.x, ver_x, map->player.y, ver_y);
+        double nm = hor_dist < ver_dist ? hor_dist : ver_dist; 
+        wall_dis = (TILE_SIZE * map->map_height * TILE_SIZE) / (nm * cos(ray_angle - map->player.rotation_angle));
+        draw_wall(map,i,wall_dis);
+        // if (hor_dist < ver_dist)
+        //     DDA(map, map->player.x, hor_x, map->player.y, hor_y);
+        // else
+        //     DDA(map, map->player.x, ver_x, map->player.y, ver_y);
     }
 }

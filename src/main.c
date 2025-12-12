@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:03:21 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/12 06:56:55 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/12 11:18:13 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,8 @@ int	main(int ac, char **av)
 	player_pos(&map);
 	get_img(&map);
 	draw_imgs(&map);
-	map_rendering(&map, 0, 0);
+	// map_rendering(&map, 0, 0);
+	mlx_image_to_window(map.mlx, map.dir_img, 0, 0);
 	mlx_loop_hook(map.mlx, &key_events, &map);
 	mlx_loop(map.mlx);
 	mlx_terminate(map.mlx);

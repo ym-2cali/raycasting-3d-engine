@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 17:49:56 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/12 09:24:31 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/12 10:43:18 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	round_it(t_map *map, int *i, int *j, int *flag)
 {
-	if (map->player.rotation_angle > 0 && map->player.rotation_angle <  M_PI / 2)
+	if (map->player.rotation_angle >= 0 && map->player.rotation_angle <  M_PI / 2)
 	{
 		while (*j % 32)
 			(*j)--;
@@ -23,7 +23,7 @@ void	round_it(t_map *map, int *i, int *j, int *flag)
 			(*i)--;
 		*flag = 1;
 	}
-	else if (map->player.rotation_angle > M_PI / 2 && map->player.rotation_angle < M_PI)
+	else if (map->player.rotation_angle >= M_PI / 2 && map->player.rotation_angle < M_PI)
 	{
 		while (*j % 32)
 			(*j)++;
@@ -31,7 +31,7 @@ void	round_it(t_map *map, int *i, int *j, int *flag)
 			(*i)--;	
 		*flag = 2;
 	}
-	else if (map->player.rotation_angle > M_PI && map->player.rotation_angle < 3 * M_PI / 2)
+	else if (map->player.rotation_angle >= M_PI && map->player.rotation_angle < 3 * M_PI / 2)
 	{
 		while (*j % 32)
 			(*j)++;
@@ -39,7 +39,7 @@ void	round_it(t_map *map, int *i, int *j, int *flag)
 			(*i)++;
 		*flag = 3;	
 	}
-	else if (map->player.rotation_angle > 3 * M_PI / 2 && map->player.rotation_angle < 2 * M_PI)
+	else if (map->player.rotation_angle >= 3 * M_PI / 2 && map->player.rotation_angle < 2 * M_PI)
 	{
 		while (*j % 32)
 			(*j)--;
@@ -92,32 +92,33 @@ int	check_between(t_map *map, double x, double y)
 	int	j;
 	int	flag;
 
-	i = floor(y);
-	j = floor(x);
-	flag = 0;
-	round_it(map, &i, &j, &flag);
-	i /= TILE_SIZE;
-	j /= TILE_SIZE;
-	if (flag == 1)
-	{
-		if (map->arr[i - 1][j] == '1' && map->arr[i][j - 1] == '1')
-			return (0);
-	}
-	else if (flag == 2)
-	{
-		if (map->arr[i][j] == '1' && map->arr[i - 1][j - 1] == '1')
-			return (0);
-	}
-	else if (flag == 3)
-	{
-		if (map->arr[i][j - 1] == '1' && map->arr[i - 1][j] == '1')
-			return (0);
-	}
-	else if (flag == 4)
-	{
-		if (map->arr[i][j] != '1' && map->arr[i - 1][j - 1] != '1')	
-			return (0);
-	}
+	// i = floor(y);
+	// j = floor(x);
+	// flag = 0;
+	// round_it(map, &i, &j, &flag);
+	// i /= TILE_SIZE;
+	// j /= TILE_SIZE;
+	// printf("%d\n",flag);
+	// if (flag == 1)
+	// {
+	// 	if (map->arr[i - 1][j] == '1' && map->arr[i][j - 1] == '1')
+	// 		return (0);
+	// }
+	// else if (flag == 2)
+	// {
+	// 	if (map->arr[i][j] == '1' && map->arr[i - 1][j - 1] == '1')
+	// 		return (0);
+	// }
+	// else if (flag == 3)
+	// {
+	// 	if (map->arr[i][j - 1] == '1' && map->arr[i - 1][j] == '1')
+	// 		return (0);
+	// }
+	// else if (flag == 4)
+	// {
+	// 	if (map->arr[i][j] != '1' && map->arr[i - 1][j - 1] != '1')	
+	// 		return (0);
+	// }
 	return (1);
 }
 
@@ -132,6 +133,7 @@ int	check_wall(t_map *map, double x, double y)
 		return (0);
 	if (check_horizontal(map, x, y) && check_vertical(map, x, y) && check_between(map, x, y))
 		return (1);
+	// return 1;
 	return (0);
 }
 
