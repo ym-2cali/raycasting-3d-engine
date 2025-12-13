@@ -75,17 +75,17 @@ double vertical_intersection(t_map *map, double angle, double *hit_x, double *hi
 void draw_wall(t_map *map, int x,double wall_dis)
 {
     int y = 0;
-    int wall_start = map->map_height *  TILE_SIZE / 2 - (int) wall_dis;
-    int wall_end = map->map_height *  TILE_SIZE / 2 +  (int)wall_dis;
+    int wall_start = WINDOW_HEIGHT / 2 - (int) wall_dis;
+    int wall_end = WINDOW_HEIGHT / 2 +  (int)wall_dis;
     if(wall_start < 0)
         wall_start = 0;
-    if(wall_end > map->map_height *  TILE_SIZE)
-        wall_end = map->map_height *  TILE_SIZE;
+    if(wall_end > WINDOW_HEIGHT)
+        wall_end = WINDOW_HEIGHT;
     while(y < wall_start)
         mlx_put_pixel(map->dir_img, x, y++, get_color(255, 255, 255, 255));
     while(wall_start < wall_end)
         mlx_put_pixel(map->dir_img, x, wall_start++, get_color(0, 0, 255, 255));
-    while(wall_end < map->map_height *  TILE_SIZE)
+    while(wall_end < WINDOW_HEIGHT)
         mlx_put_pixel(map->dir_img, x, wall_end++, get_color(255, 255, 255, 255));
 }
 
@@ -99,9 +99,9 @@ void ray_caster(t_map *map)
 	int i;
     double wall_dis;
 	i = -1;
-    while ((++i) < map->map_width * TILE_SIZE)
+    while ((++i) < WINDOW_WIDTH)
     {
-        ray_angle = start_angle + (i * (FOV / (map->map_width * TILE_SIZE)));
+        ray_angle = start_angle + (i * (FOV / WINDOW_WIDTH));
         if (ray_angle < 0)
 			ray_angle += 2 * M_PI;
         if (ray_angle > 2 * M_PI)
@@ -109,7 +109,7 @@ void ray_caster(t_map *map)
         hor_dist = horizontal_intersection(map, ray_angle, &hor_x, &hor_y);
         ver_dist = vertical_intersection(map, ray_angle, &ver_x, &ver_y);
         double nm = hor_dist < ver_dist ? hor_dist : ver_dist; 
-        wall_dis = (TILE_SIZE * map->map_height * TILE_SIZE) / (nm * cos(ray_angle - map->player.rotation_angle));
+        wall_dis = (TILE_SIZE * WINDOW_HEIGHT) / (nm * cos(ray_angle - map->player.rotation_angle));
         draw_wall(map,i,wall_dis);
         // if (hor_dist < ver_dist)
         //     DDA(map, map->player.x, hor_x, map->player.y, hor_y);

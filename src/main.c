@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:03:21 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/13 18:06:38 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/13 18:24:19 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ uint32_t	get_color(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
 
 int	get_window(t_map *map)
 {
-	map->mlx = mlx_init(map->map_width * TILE_SIZE, map->map_height * TILE_SIZE, "hello", 0);//wsl screen (1366, 768)
+	printf("map width: %d, map height: %d\n", map->map_width, map->map_height);
+	map->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "hello", 0);
 	if (!map->mlx)
 		return (1);
 	// map->win = mlx_new_window(map->mlx, 1920, 1080, "hello");
@@ -121,8 +122,6 @@ int	main(int ac, char **av)
 		return (write(2, "graphics connection Failed\n", 27), 1);
 	double	x = 0;
 	double	y = 0;
-	// map->x_size = TILE_SIZE;
-	// map->y_size = TILE_SIZE;
 	map->rad = TILE_SIZE / 4;
 	player_pos(map);
 	get_img(map);

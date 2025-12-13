@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:11:58 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/13 14:28:24 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/13 18:24:19 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 
 // # define ROTAT_ANGLE (M_PI / 2)
 # define TILE_SIZE 32 
+# define WINDOW_WIDTH (34 * TILE_SIZE)
+# define WINDOW_HEIGHT (14 * TILE_SIZE)
 # define MOVE_SPEED 3.0
 # define ROTAT_SPEED (3 * (M_PI / 180))
 # define FOV 60 * (M_PI / 180)

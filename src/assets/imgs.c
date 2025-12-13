@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:02:45 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/13 18:06:30 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/13 18:24:19 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void	get_img(t_map *map)
 	map->wall_img = mlx_new_image(map->mlx, TILE_SIZE, TILE_SIZE);
 	map->img = mlx_new_image(map->mlx, TILE_SIZE, TILE_SIZE);
 	map->player_img = mlx_new_image(map->mlx, TILE_SIZE, TILE_SIZE);
-	map->dir_img = mlx_new_image(map->mlx, map->map_width * TILE_SIZE, map->map_height * TILE_SIZE);
+	map->dir_img = mlx_new_image(map->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 void	clear_dir_img(t_map *map)
 {
 	int x;
 	int y;
-	int w = map->map_width * TILE_SIZE;
-	int h = map->map_height * TILE_SIZE;
+	int w = WINDOW_WIDTH;
+	int h = WINDOW_HEIGHT;
 
 	y = 0;
 	while (y < h)
