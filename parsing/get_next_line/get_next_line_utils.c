@@ -6,7 +6,7 @@
 /*   By: alel-you <alel-you@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 23:47:49 by alel-you          #+#    #+#             */
-/*   Updated: 2024/12/03 18:00:35 by alel-you         ###   ########.fr       */
+/*   Updated: 2025/10/16 16:50:05 by alel-you         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_getline(char *rest)
 		i++;
 	if (rest[i] && rest[i] == '\n')
 		i++;
-	line = ft_malloc(sizeof(char) * (i + 1));
+	line = malloc(sizeof(char) * (i + 1));
 	if (!line)
 		return (NULL);
 	while (count < i)

@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 17:49:56 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/12 10:43:18 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/13 12:42:26 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	check_horizontal(t_map *map, double x, double y)
 		j--;
 	i /= TILE_SIZE;
 	j /= TILE_SIZE;
-	if (i < 0 || i >= map->map_height || j < 0 || j >= ft_strlen(map->arr[i]))
+	if (i < 0 || i >= map->map_height || j < 0 || j >= ft_strlens(map->arr[i]))
 		return (0);
 	if (map->arr[i][j] != '1')
 		return (1);
@@ -79,7 +79,7 @@ int	check_vertical(t_map *map, double x, double y)
 		i--;
 	i /= TILE_SIZE;
 	j /= TILE_SIZE;
-	if (i < 0 || i >= map->map_height || j < 0 || j >= ft_strlen(map->arr[i]))
+	if (i < 0 || i >= map->map_height || j < 0 || j >= ft_strlens(map->arr[i]))
 		return (0);
 	if (map->arr[i][j] != '1')
 		return (1);
@@ -129,7 +129,7 @@ int	check_wall(t_map *map, double x, double y)
 
 	j = (int)(x / map->x_size);
 	i = (int)(y / map->y_size);	
-	if (i < 0 || i >= map->map_height || j < 0 || j >= ft_strlen(map->arr[i]))
+	if (i < 0 || i >= map->map_height || j < 0 || j >= ft_strlens(map->arr[i]))
 		return (0);
 	if (check_horizontal(map, x, y) && check_vertical(map, x, y) && check_between(map, x, y))
 		return (1);
@@ -185,7 +185,7 @@ void 	update_player(t_map *map)
 		clear_dir_img(map);
 		ray_caster(map);
 		mlx_delete_image(map->mlx, map->player_img);
-		map->player_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
+		map->player_img = mlx_new_image(map->mlx, TILE_SIZE, TILE_SIZE);
 		player_img(map, get_color(204, 57, 9, 255));
 		mlx_image_to_window(map->mlx, map->player_img, map->player.x - TILE_SIZE / 2, map->player.y - TILE_SIZE / 2);
 	}

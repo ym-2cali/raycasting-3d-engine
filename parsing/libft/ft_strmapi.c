@@ -6,7 +6,7 @@
 /*   By: alel-you <alel-you@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 22:29:28 by alel-you          #+#    #+#             */
-/*   Updated: 2024/11/20 03:21:30 by alel-you         ###   ########.fr       */
+/*   Updated: 2025/10/16 16:50:05 by alel-you         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	index = 0;
 	if (!s || !f)
 		return (NULL);
-	str = ft_malloc(ft_strlen(s) + 1);
+	str = malloc(ft_strlen(s) + 1);
 	while (s[index])
 	{
 		str[index] = f(index, s[index]);

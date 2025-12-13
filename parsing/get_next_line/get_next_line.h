@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alel-you <alel-you@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 23:38:13 by alel-you          #+#    #+#             */
-/*   Updated: 2024/12/03 18:01:48 by alel-you         ###   ########.fr       */
+/*   Updated: 2025/12/13 12:27:20 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "../libft/libft.h"
-# include "../header/cub.h"
+# include "../../inc/cub3d.h"
 # ifndef BUFFER_SIZE 
 #  define BUFFER_SIZE 13
 # endif

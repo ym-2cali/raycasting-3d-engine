@@ -5,7 +5,7 @@ static int is_wall(t_map *map, double x, double y)
     int mx = (int)(x / TILE_SIZE);
     int my = (int)(y / TILE_SIZE);
 
-    if (mx < 0 || my < 0 || my >= map->map_height || mx >= (int)ft_strlen(map->arr[my]))
+    if (mx < 0 || my < 0 || my >= map->map_height || mx >= (int)ft_strlens(map->arr[my]))
         return (1);
     return (map->arr[my][mx] == '1');
 }
@@ -82,17 +82,11 @@ void draw_wall(t_map *map, int x,double wall_dis)
     if(wall_end > map->map_height *  TILE_SIZE)
         wall_end = map->map_height *  TILE_SIZE;
     while(y < wall_start)
-    {
         mlx_put_pixel(map->dir_img, x, y++, get_color(255, 255, 255, 255));
-    }
     while(wall_start < wall_end)
-    {
         mlx_put_pixel(map->dir_img, x, wall_start++, get_color(0, 0, 255, 255));
-    }
     while(wall_end < map->map_height *  TILE_SIZE)
-    {
         mlx_put_pixel(map->dir_img, x, wall_end++, get_color(255, 255, 255, 255));
-    }
 }
 
 void ray_caster(t_map *map)
