@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:11:58 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/13 18:24:19 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/13 18:40:06 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct s_map
 
 void		player_img(t_map *map, uint32_t color);
 void		draw_img(t_map *map, mlx_image_t* img, uint32_t color);
-void		get_img(t_map *map);
+int		get_img(t_map *map);
 void		clear_dir_img(t_map *map);
 void		ft_bzero(void *s, size_t n);
 int			ft_strlens(char *s);
@@ -110,6 +110,7 @@ void 		update_player(t_map *map);
 double		DDA(t_map *map, double x0, double x1, double y0, double y1);
 void		ray_caster(t_map *map);
 int			check_wall(t_map *map, double x, double y);
+void	destroy_imgs(t_map *map);
 t_player_facing	player_facing(double *angle, int flag);
 // --------------------------
 t_cred_list	*grap_credantials(int fd);

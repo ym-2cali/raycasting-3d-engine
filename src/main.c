@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:03:21 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/13 18:24:19 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/13 18:42:17 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,8 @@ int	main(int ac, char **av)
 	double	y = 0;
 	map->rad = TILE_SIZE / 4;
 	player_pos(map);
-	get_img(map);
+	if (!get_img(map))
+		return (1);
 	draw_imgs(map);
 	// map_rendering(&map, 0, 0);
 	mlx_image_to_window(map->mlx, map->dir_img, 0, 0);
@@ -132,47 +133,3 @@ int	main(int ac, char **av)
 	mlx_loop(map->mlx);
 	mlx_terminate(map->mlx);
 }
-
-// int	main(int ac, char **av)
-// {
-// 	t_map map;
-// 	char *mapp[] = {
-// 	    "1111111111111111111111111",
-// 	    "1000000000110000000000001",
-// 	    "1011000001110000000000001",
-// 	    "1001000000000000000000001",
-// 	    "111111111011000001110000011111111",
-// 	    "100000000011000001110111111111111",
-// 	    "11110111111111011100000010001",
-// 	    "11110111111111011101010010001",
-// 	    "11000000110101011100100010001",
-// 	    "10000000000000001100000000001",
-// 	    "10000000000000001101010000001",
-// 	    "11000001110101011111011000W0111",
-// 	    "11110111 1110101 101111000001",
-// 	    "11111111 1111111 111111111111",
-// 	    NULL
-// 	};
-// 	(void)ac;
-// 	(void)av;
-// 	ft_bzero(&map, sizeof(t_map));
-// 	map.arr = mapp;
-// 	map.map_height = get_height(map.arr);
-// 	map.map_width = map_len(&map);
-// 	if (get_window(&map))
-// 		return (write(2, "graphics connection Failed\n", 27), 1);
-// 	double	x = 0;
-// 	double	y = 0;
-// 	map.y_size = TILE_SIZE;
-// 	map.x_size = TILE_SIZE;
-// 	map.rad = (map.x_size < map.y_size ? map.x_size : map.y_size) / 4;
-// 	player_pos(&map);
-// 	get_img(&map);
-// 	draw_imgs(&map);
-// 	// map_rendering(&map, 0, 0);
-// 	mlx_image_to_window(map.mlx, map.dir_img, 0, 0);
-// 	mlx_loop_hook(map.mlx, &key_events, &map);
-// 	mlx_loop(map.mlx);
-// 	mlx_terminate(map.mlx);
-// 	return (0);
-// }
