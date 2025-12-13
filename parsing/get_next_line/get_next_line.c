@@ -6,7 +6,7 @@
 /*   By: alel-you <alel-you@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 23:32:14 by alel-you          #+#    #+#             */
-/*   Updated: 2024/12/03 18:06:04 by alel-you         ###   ########.fr       */
+/*   Updated: 2025/10/16 16:50:05 by alel-you         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*ft_joing_data(char *s1, char *s2)
 	if (!s1 && s2)
 		return (ft_strdup(s2));
 	len = ft_strlen(s1) + ft_strlen(s2);
-	joined = ft_malloc(sizeof(char) * (len + 1));
+	joined = malloc(sizeof(char) * (len + 1));
 	while (s1 && s1[i])
 		joined[x++] = s1[i++];
 	i = 0;
@@ -42,7 +42,7 @@ static char	*ft_read_from_fd(char *rest, int fd)
 	char	*tmp;
 
 	readed_bytes = 1;
-	tmp = ft_malloc(BUFFER_SIZE + 1);
+	tmp = malloc(BUFFER_SIZE + 1);
 	while (readed_bytes > 0)
 	{
 		readed_bytes = read(fd, tmp, BUFFER_SIZE);

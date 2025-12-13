@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:05:48 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/11/21 19:10:00 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/13 12:43:00 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-int	ft_strlen(char *s)
+int	ft_strlens(char *s)
 {
 	int	i;
 

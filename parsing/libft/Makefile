@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alel-you <alel-you@student.42.fr>          +#+  +:+       +#+         #
+#    By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/09 21:17:16 by alel-you          #+#    #+#              #
-#    Updated: 2024/11/20 01:54:53 by alel-you         ###   ########.fr        #
+#    Updated: 2025/12/13 14:47:50 by yael-maa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ bonus: $(BONUS_OBJF)
 	@echo BONUS_obj created
 
 clean:
-	@rm -rf $(OBJF) $(BONUS_OBJF)
+	@rm -rf $(OBJF) *.o $(BONUS_OBJF)
 	@echo CLEANED
 
 fclean: clean

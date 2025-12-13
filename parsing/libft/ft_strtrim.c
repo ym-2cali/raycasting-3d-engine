@@ -6,7 +6,7 @@
 /*   By: alel-you <alel-you@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 20:46:57 by alel-you          #+#    #+#             */
-/*   Updated: 2024/11/20 03:35:11 by alel-you         ###   ########.fr       */
+/*   Updated: 2025/10/16 16:50:05 by alel-you         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (start >= end)
 		return (ft_strdup(""));
 	len = (end - start + 1);
-	new = ft_malloc(len + 1);
+	new = malloc(len + 1);
 	while (s1[start] && i < len)
 		new[i++] = s1[start++];
 	new[i] = '\0';

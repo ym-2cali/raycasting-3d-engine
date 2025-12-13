@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alel-you <alel-you@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:03:54 by alel-you          #+#    #+#             */
-/*   Updated: 2024/11/17 16:35:12 by alel-you         ###   ########.fr       */
+/*   Updated: 2025/12/13 14:16:14 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
-# include "../header/cub.h"
+# include "../../inc/cub3d.h"
 # define MAX_SIZE 1844674407370955161
 
 typedef struct s_list
@@ -45,6 +45,7 @@ int		ft_isdigit(int c);
 int		ft_isprint(int c);
 int		ft_atoi(char const *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strcmp(const char *s1, const char *s2);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t	ft_strlen(char const *str);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);

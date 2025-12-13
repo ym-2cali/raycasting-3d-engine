@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ali-elyouss <ali-elyouss@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alel-you <alel-you@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:01:52 by alel-you          #+#    #+#             */
-/*   Updated: 2024/11/17 02:29:58 by ali-elyouss      ###   ########.fr       */
+/*   Updated: 2025/10/16 16:50:05 by alel-you         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_strdup(char const *str)
 	int		len;
 
 	len = ft_strlen(str);
-	dup = ft_malloc(len + 1);
+	dup = malloc(len + 1);
 	ft_strcpy(dup, str);
 	return (dup);
 }

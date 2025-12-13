@@ -6,7 +6,7 @@
 /*   By: alel-you <alel-you@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 22:29:28 by alel-you          #+#    #+#             */
-/*   Updated: 2024/11/17 16:24:44 by alel-you         ###   ########.fr       */
+/*   Updated: 2025/10/16 16:50:05 by alel-you         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ char	**ft_split(char *s, char c)
 	p.len = 0;
 	p.n = 0;
 	p.words = ft_words_count(s, c);
-	p.sp = ft_malloc(sizeof(char *) * (p.words + 1));
+	p.sp = malloc(sizeof(char *) * (p.words + 1));
 	while (p.i < p.words)
 	{
 		p.x = 0;
 		p.len = ft_lenght(s + p.n, c);
-		p.sp[p.i] = ft_malloc(p.len + 1);
+		p.sp[p.i] = malloc(p.len + 1);
 		while (s[p.n] && s[p.n] == c)
 			p.n++;
 		while (s[p.n] && s[p.n] != c)
