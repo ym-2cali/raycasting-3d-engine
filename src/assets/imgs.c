@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:02:45 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/12 11:41:26 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/13 18:06:30 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	get_img(t_map *map)
 {
-	map->floor_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
-	map->wall_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
-	map->img = mlx_new_image(map->mlx, map->x_size, map->y_size);
-	map->player_img = mlx_new_image(map->mlx, map->x_size, map->y_size);
+	map->floor_img = mlx_new_image(map->mlx, TILE_SIZE, TILE_SIZE);
+	map->wall_img = mlx_new_image(map->mlx, TILE_SIZE, TILE_SIZE);
+	map->img = mlx_new_image(map->mlx, TILE_SIZE, TILE_SIZE);
+	map->player_img = mlx_new_image(map->mlx, TILE_SIZE, TILE_SIZE);
 	map->dir_img = mlx_new_image(map->mlx, map->map_width * TILE_SIZE, map->map_height * TILE_SIZE);
 }
 
@@ -25,8 +25,8 @@ void	clear_dir_img(t_map *map)
 {
 	int x;
 	int y;
-	int w = map->map_width * map->x_size;
-	int h = map->map_height * map->y_size;
+	int w = map->map_width * TILE_SIZE;
+	int h = map->map_height * TILE_SIZE;
 
 	y = 0;
 	while (y < h)
@@ -59,8 +59,8 @@ void	line_dir(t_map *map, int x, int y, uint32_t color)
 	int	cx;
 	int	cy;
 
-	cx = map->x_size / 2;
-	cy = map->y_size / 2;
+	cx = TILE_SIZE / 2;
+	cy = TILE_SIZE / 2;
 	if (map->player.spg_or == N)
 	{	
 		if (x == cx && y < cy)

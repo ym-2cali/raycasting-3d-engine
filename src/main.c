@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:03:21 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/13 15:29:24 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/13 18:06:38 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ int	main(int ac, char **av)
 		return (write(2, "graphics connection Failed\n", 27), 1);
 	double	x = 0;
 	double	y = 0;
+	// map->x_size = TILE_SIZE;
+	// map->y_size = TILE_SIZE;
 	map->rad = TILE_SIZE / 4;
 	player_pos(map);
 	get_img(map);

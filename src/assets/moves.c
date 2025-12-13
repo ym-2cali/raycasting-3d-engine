@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 17:49:56 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/13 12:42:26 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/13 18:05:25 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,8 @@ int	check_wall(t_map *map, double x, double y)
 	int	j;
 	int	i;
 
-	j = (int)(x / map->x_size);
-	i = (int)(y / map->y_size);	
+	j = (int)(x / TILE_SIZE);
+	i = (int)(y / TILE_SIZE);	
 	if (i < 0 || i >= map->map_height || j < 0 || j >= ft_strlens(map->arr[i]))
 		return (0);
 	if (check_horizontal(map, x, y) && check_vertical(map, x, y) && check_between(map, x, y))
