@@ -82,11 +82,11 @@ void draw_wall(t_map *map, int x,double wall_dis)
     if(wall_end > WINDOW_HEIGHT)
         wall_end = WINDOW_HEIGHT;
     while(y < wall_start)
-        mlx_put_pixel(map->dir_img, x, y++, get_color(255, 255, 255, 255));
+        mlx_put_pixel(map->dir_img, x, y++, get_color(map->ceiling_color[0], map->ceiling_color[1], map->ceiling_color[2], 255));
     while(wall_start < wall_end)
         mlx_put_pixel(map->dir_img, x, wall_start++, get_color(0, 0, 255, 255));
     while(wall_end < WINDOW_HEIGHT)
-        mlx_put_pixel(map->dir_img, x, wall_end++, get_color(255, 255, 255, 255));
+        mlx_put_pixel(map->dir_img, x, wall_end++, get_color(map->floor_color[0], map->floor_color[1], map->floor_color[2], 255));
 }
 
 void ray_caster(t_map *map)
