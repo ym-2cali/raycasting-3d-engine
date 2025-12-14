@@ -16,7 +16,6 @@ static double horizontal_intersection(t_map *map, double angle, double *hit_x, d
     double y_step, x_step;
 
     int facing_down = (angle > 0 && angle < M_PI);
-    int facing_up = !facing_down;
     y_inter = floor(map->player.y / TILE_SIZE) * TILE_SIZE;
     if (facing_down) 
 		y_inter += TILE_SIZE;
@@ -47,7 +46,7 @@ double vertical_intersection(t_map *map, double angle, double *hit_x, double *hi
     double y_step, x_step;
 
     int facing_right = (angle < M_PI_2 || angle > 3*M_PI_2);
-    int facing_left = !facing_right;
+    // bool facing_left = !facing_right;
     x_inter = floor(map->player.x / TILE_SIZE) * TILE_SIZE;
     if (facing_right)
 		x_inter += TILE_SIZE;
@@ -95,7 +94,7 @@ void ray_caster(t_map *map)
     double ray_angle;
     double hor_x, hor_y, ver_x, ver_y;
     double hor_dist, ver_dist;
-    int n_rays = 320;
+    // int n_rays = 320;
 	int i;
     double wall_dis;
 	i = -1;

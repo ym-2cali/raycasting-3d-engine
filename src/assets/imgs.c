@@ -106,6 +106,8 @@ void	line_dir(t_map *map, int x, int y, uint32_t color)
 
 void	player_img(t_map *map, uint32_t color)
 {
+	(void)map;
+	(void)color;
 	// double	cx;
 	// double	cy;
 	// double	y;

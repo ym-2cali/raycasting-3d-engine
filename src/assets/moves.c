@@ -88,9 +88,12 @@ int	check_vertical(t_map *map, double x, double y)
 
 int	check_between(t_map *map, double x, double y)
 {
-	int	i;
-	int	j;
-	int	flag;
+	(void)map;
+	(void)x;
+	(void)y;
+	// int	i;
+	// int	j;
+	// int	flag;
 
 	// i = floor(y);
 	// j = floor(x);

@@ -122,9 +122,9 @@ int closed_map(char **map)
                     return (printf("walkable area exposed to void at y=%d, x=%d (left)\n", y, x), 0);
                 if (x == len - 1 || map[y][x + 1] == ' ')
                     return (printf("walkable area exposed to void at y=%d, x=%d (right)\n", y, x), 0);
-                if (y == 0 || x >= ft_strlen(map[y - 1]) || map[y - 1][x] == ' ' || map[y - 1][x] == '\n')
+                if (y == 0 || (size_t)x >= ft_strlen(map[y - 1]) || map[y - 1][x] == ' ' || map[y - 1][x] == '\n')
                     return (printf("walkable area exposed to void at y=%d, x=%d (up)\n", y, x), 0);
-                if (y == td_len(map) - 1 || x >= ft_strlen(map[y + 1]) || map[y + 1][x] == ' ' || map[y + 1][x] == '\n')
+                if (y == td_len(map) - 1 || (size_t)x >= ft_strlen(map[y + 1]) || map[y + 1][x] == ' ' || map[y + 1][x] == '\n')
                     return (printf("walkable area exposed to void at y=%d, x=%d (down)\n", y, x), 0);
             }
             x++;

@@ -17,20 +17,19 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <errno.h>
-# include "/home/yael-maa/cub3d/MLX422/include/MLX42/MLX42.h"
+# include <MLX42/MLX42.h>
 # include <fcntl.h>
 # include <math.h>
 # include "../parsing/get_next_line/get_next_line.h"
 # include "../parsing/libft/libft.h"
 
-// # define ROTAT_ANGLE (M_PI / 2)
+# define ROTAT_ANGLE (M_PI / 2)
 # define TILE_SIZE 32 
 # define WINDOW_WIDTH (34 * TILE_SIZE)
 # define WINDOW_HEIGHT (14 * TILE_SIZE)
 # define MOVE_SPEED 3.0
 # define ROTAT_SPEED (3 * (M_PI / 180))
 # define FOV 60 * (M_PI / 180)
-// # define TILE_SIZE (2 * (M_PI / 180))
 
 typedef struct s_cred_list
 {
@@ -95,22 +94,22 @@ typedef struct s_map
 	char				*ea_texture;
 } t_map ;
 
-void		player_img(t_map *map, uint32_t color);
-void		draw_img(t_map *map, mlx_image_t* img, uint32_t color);
-int		get_img(t_map *map);
-void		clear_dir_img(t_map *map);
-void		ft_bzero(void *s, size_t n);
-int			ft_strlens(char *s);
-void		player_pos(t_map *map);
-uint32_t	get_color(uint32_t r, uint32_t g, uint32_t b, uint32_t a);
-void		line_dir(t_map *map, int x, int y, uint32_t color);
-void		map_rendering(t_map *map, int x, int y);
-void		draw_imgs(t_map *map);
-void 		update_player(t_map *map);
-double		DDA(t_map *map, double x0, double x1, double y0, double y1);
-void		ray_caster(t_map *map);
-int			check_wall(t_map *map, double x, double y);
-void	destroy_imgs(t_map *map);
+void			player_img(t_map *map, uint32_t color);
+void			draw_img(t_map *map, mlx_image_t* img, uint32_t color);
+int				get_img(t_map *map);
+void			clear_dir_img(t_map *map);
+void			ft_bzero(void *s, size_t n);
+int				ft_strlens(char *s);
+void			player_pos(t_map *map);
+uint32_t		get_color(uint32_t r, uint32_t g, uint32_t b, uint32_t a);
+void			line_dir(t_map *map, int x, int y, uint32_t color);
+void			map_rendering(t_map *map, int x, int y);
+void			draw_imgs(t_map *map);
+void 			update_player(t_map *map);
+double			DDA(t_map *map, double x0, double x1, double y0, double y1);
+void			ray_caster(t_map *map);
+int				check_wall(t_map *map, double x, double y);
+void			destroy_imgs(t_map *map);
 t_player_facing	player_facing(double *angle, int flag);
 // --------------------------
 t_cred_list	*grap_credantials(int fd);
@@ -137,5 +136,6 @@ int closed_map(char **map);
 int	one_player_on_map(char **map);
 int	cub_items(char *line);
 void	print_cred(t_map *cb);
-
+int	get_window(t_map *map);
+void	key_events(void* param);
 #endif

@@ -65,8 +65,9 @@ void	print_list(t_cred_list *list)
 
 int	parse_map(char **map, t_map **cb_st, t_cred_list *list)
 {
+	(void)list;
 	int		y;
-	char	**p_map;
+	// char	**p_map;
 
 	y = 0;
 	if (!map || !map[0])
