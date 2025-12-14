@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parce_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alel-you <alel-you@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 19:58:14 by alel-you          #+#    #+#             */
-/*   Updated: 2025/12/13 13:57:03 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/14 16:55:23 by alel-you         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,7 @@ int	parse_arguments(t_map **cb_st, char **av)
 	(*cb_st)->ea_texture = NULL;
 	if (!extract_credantials(cb_st, fd))
 		return (0);
+	if (!validate_all_textures(*cb_st))
+		return (puts("aloo hhh"), 0);
 	return (1);
 }

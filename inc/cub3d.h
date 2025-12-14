@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alel-you <alel-you@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:11:58 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/13 18:40:06 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/14 16:49:59 by alel-you         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <errno.h>
-# include "/home/yael-maa/cub3d/MLX422/include/MLX42/MLX42.h"
+# include "/home/alel-you/Desktop/cub3d/MLX422/include/MLX42/MLX42.h"
 # include <fcntl.h>
 # include <math.h>
 # include "../parsing/get_next_line/get_next_line.h"
@@ -70,6 +70,18 @@ typedef struct s_inter
 	double	y;
 } t_inter;
 
+typedef struct s_ray_data
+{
+	double	angle;
+	double	hit_x;
+	double	hit_y;
+	int		is_vertical;
+	double	wall_dis;
+	int		wall_start;
+	int		wall_end;
+}	t_ray_data;
+
+
 typedef struct s_map
 {
 	void*			mlx;
@@ -93,6 +105,10 @@ typedef struct s_map
 	char				*so_texture;
 	char				*we_texture;
 	char				*ea_texture;
+	mlx_texture_t		*north_tex;
+	mlx_texture_t		*south_tex;
+	mlx_texture_t		*west_tex;
+	mlx_texture_t		*east_tex;
 } t_map ;
 
 void		player_img(t_map *map, uint32_t color);
@@ -114,6 +130,7 @@ void	destroy_imgs(t_map *map);
 t_player_facing	player_facing(double *angle, int flag);
 // --------------------------
 t_cred_list	*grap_credantials(int fd);
+void draw_wall(t_map *map, t_ray_data ray, int x);
 int 		extract_credantials(t_map **cb_st, int fd);
 int 		valid_map_arg(char *arg);
 int			parse_arguments(t_map **cb_st, char **av);
@@ -138,4 +155,11 @@ int	one_player_on_map(char **map);
 int	cub_items(char *line);
 void	print_cred(t_map *cb);
 
+void	free_textures(t_map *map);
+int	load_all_textures(t_map *map);
+int	get_tex_x(double hit_pos, mlx_texture_t *tex);
+int	get_tex_y(int pixel_y, int wall_start, int wall_height, mlx_texture_t *tex);
+uint32_t	sample_texture(mlx_texture_t *tex, double hit_pos,
+int pixel_y, int wall_start, int wall_height);
+int	validate_all_textures(t_map *map);
 #endif

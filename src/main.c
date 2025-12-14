@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alel-you <alel-you@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:03:21 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/13 18:42:17 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/14 16:56:27 by alel-you         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ int	main(int ac, char **av)
 //	rc ---------------------------------
 	if (get_window(map))
 		return (write(2, "graphics connection Failed\n", 27), 1);
+	if (!load_all_textures(map))
+		return (write(2, "graphicall connection error\n", 28), 1);
 	double	x = 0;
 	double	y = 0;
 	map->rad = TILE_SIZE / 4;
