@@ -89,13 +89,11 @@ int	asign_texters(t_cred_list *list, t_map **cub)
 
 int	asign_colors(t_cred_list *list, t_map **cb_st)
 {
-	// int		i;
 	char	**c;
 	char	**f;
 	char	*tmp;
 	char	*tmp1;
 	
-	// i = 0;
 	tmp1 = get_wanted_line(list, "C");
 	tmp = get_wanted_line(list, "F");
 	if (!tmp1 || !tmp)

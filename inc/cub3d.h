@@ -69,6 +69,17 @@ typedef struct s_inter
 	double	y;
 } t_inter;
 
+typedef struct s_ray_data
+{
+	double	angle;
+	double	hit_x;
+	double	hit_y;
+	int		is_vertical;
+	double	wall_dis;
+	int		wall_start;
+	int		wall_end;
+}	t_ray_data;
+
 typedef struct s_map
 {
 	void*			mlx;
@@ -92,6 +103,10 @@ typedef struct s_map
 	char				*so_texture;
 	char				*we_texture;
 	char				*ea_texture;
+	mlx_texture_t		*north_tex;
+	mlx_texture_t		*south_tex;
+	mlx_texture_t		*west_tex;
+	mlx_texture_t		*east_tex;
 } t_map ;
 
 void			player_img(t_map *map, uint32_t color);
@@ -138,4 +153,9 @@ int	cub_items(char *line);
 void	print_cred(t_map *cb);
 int	get_window(t_map *map);
 void	key_events(void* param);
+int	validate_all_textures(t_map *map);
+int	load_all_textures(t_map *map);
+void	free_textures(t_map *map);
+uint32_t	sample_texture(mlx_texture_t *tex, double hit_pos,
+				int pixel_y, int wall_start, int wall_height);
 #endif

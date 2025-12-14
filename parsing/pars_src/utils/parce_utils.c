@@ -140,5 +140,7 @@ int	parse_arguments(t_map **cb_st, char **av)
 	(*cb_st)->ea_texture = NULL;
 	if (!extract_credantials(cb_st, fd))
 		return (0);
+	if (!validate_all_textures(*cb_st))
+		return (0);
 	return (1);
 }

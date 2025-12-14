@@ -7,10 +7,12 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC = main.c src/utils/util.c src/assets/imgs.c src/assets/moves.c src/assets/ray_caster.c \
       src/window.c src/utils/lib_ft.c src/assets/wall_projection.c \
+      parsing/pars_src/utils/texture_loader.c parsing/pars_src/utils/texture_render.c \
       parsing/get_next_line/get_next_line.c parsing/get_next_line/get_next_line_utils.c \
       parsing/pars_src/utils/map_utils.c parsing/pars_src/utils/map_utils1.c \
       parsing/pars_src/utils/parce_utils.c parsing/pars_src/utils/utils.c \
-      parsing/pars_src/utils/utils1.c parsing/pars_src/parse.c parsing/pars_src/tools.c
+      parsing/pars_src/utils/utils1.c parsing/pars_src/utils/texture_validation.c \
+      parsing/pars_src/parse.c parsing/pars_src/tools.c
 
 OBJS = $(SRC:.c=.o)
 
