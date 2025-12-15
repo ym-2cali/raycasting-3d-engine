@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 17:49:56 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/13 18:05:25 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/15 16:56:15 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,8 @@ void 	update_player(t_map *map)
 	double	x;
 	double	y;
 
+	x = 0;
+	y = 0.0;
 	if (map->f != 0)
 	    move_steps = MOVE_SPEED;
 	else
