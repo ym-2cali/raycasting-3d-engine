@@ -27,8 +27,8 @@ int	main(int ac, char **av)
 //	rc
 	if (get_window(map))
 		return (write(2, "graphics connection Failed\n", 27), 1);
-	double	x = 0;
-	double	y = 0;
+	if (!load_all_textures(map))
+		return (write(2, "Texture loading failed\n", 23), 1);
 	map->rad = TILE_SIZE / 4;
 	player_pos(map);
 	get_img(map);
@@ -37,5 +37,6 @@ int	main(int ac, char **av)
 	mlx_image_to_window(map->mlx, map->dir_img, 0, 0);
 	mlx_loop_hook(map->mlx, &key_events, map);
 	mlx_loop(map->mlx);
+	free_textures(map);
 	mlx_terminate(map->mlx);
 }

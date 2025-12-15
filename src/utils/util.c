@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../../inc/cub3d.h"
 
 int	get_height(char **arr)
 {
@@ -98,38 +98,4 @@ t_player_facing	player_facing(double *angle, int flag)
         return (RIGHT);
     else
         return (LEFT);
-}
-
-int	main(int ac, char **av)
-{
-	t_map *map;
-
-// pars ----------------------------------
-	printf("here 1\n");
-	map = NULL;
-	printf("here 2\n");
-	// ft_bzero(map, sizeof(t_map));
-	printf("here 3\n");
-	if (ac <= 1)
-		return (printf("invalid arguments !!!\n"), 1);
-	map = malloc(sizeof(t_map));
-	if (!map)
-		return (perror(""), 1);
-	if (!parse_arguments(&map, av))
-		return (1);
-//	rc ---------------------------------
-	if (get_window(map))
-		return (write(2, "graphics connection Failed\n", 27), 1);
-	double	x = 0;
-	double	y = 0;
-	map->rad = TILE_SIZE / 4;
-	player_pos(map);
-	if (!get_img(map))
-		return (1);
-	draw_imgs(map);
-	// map_rendering(&map, 0, 0);
-	mlx_image_to_window(map->mlx, map->dir_img, 0, 0);
-	mlx_loop_hook(map->mlx, &key_events, map);
-	mlx_loop(map->mlx);
-	mlx_terminate(map->mlx);
 }

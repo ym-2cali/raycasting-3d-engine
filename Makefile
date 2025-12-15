@@ -1,40 +1,40 @@
-LIBFT_DIR = parsing/libft
+NAME = cub3d
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 
+LIBFT_DIR = parsing/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC= src/main.c src/assets/imgs.c src/assets/moves.c src/assets/ray_caster.c src/window.c src/utils/lib_ft.c src/assets/wall_projection.c \
-	parsing/get_next_line/get_next_line.c parsing/get_next_line/get_next_line_utils.c parsing/pars_src/utils/map_utils.c parsing/pars_src/utils/map_utils1.c parsing/pars_src/utils/parce_utils.c \
-    parsing/pars_src/utils/utils.c  parsing/pars_src/utils/utils1.c parsing/pars_src/parse.c parsing/pars_src/tools.c
+SRC = main.c src/utils/util.c src/assets/imgs.c src/assets/moves.c src/assets/ray_caster.c \
+      src/window.c src/utils/lib_ft.c src/assets/wall_projection.c \
+      parsing/pars_src/utils/texture_loader.c parsing/pars_src/utils/texture_render.c \
+      parsing/get_next_line/get_next_line.c parsing/get_next_line/get_next_line_utils.c \
+      parsing/pars_src/utils/map_utils.c parsing/pars_src/utils/map_utils1.c \
+      parsing/pars_src/utils/parce_utils.c parsing/pars_src/utils/utils.c \
+      parsing/pars_src/utils/utils1.c parsing/pars_src/utils/texture_validation.c \
+      parsing/pars_src/parse.c parsing/pars_src/tools.c
 
-OBJS= $(SRC:.c=.o)
+OBJS = $(SRC:.c=.o)
 
-NAME= cub3d
+all: $(NAME)
 
-CC= cc
-
-CFLAGS= -Wall -Wextra -Werror 
-#-fsanitize=address -g3
-all:$(NAME)
-
-$(NAME):$(OBJS) $(LIBFT) inc/cub3d.h
-	$(CC) $(CFLAGS) $(OBJS)  $(LIBFT) MLX422/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm -o $(NAME)
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) MLX422/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm -o $(NAME)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
-#linux  MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm 	
-#wsl -I./MLX42/include -L./MLX42/build -lmlx42 -ldl -lglfw -pthread -lm
 
-%.o:%.c inc/cub3d.h
-	$(CC) -c $< -o $@
+%.o: %.c
+	$(CC) $(CFLAGS) -I./MLX422/include -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
 	make -C $(LIBFT_DIR) clean
 
-fclean:clean
+fclean: clean
 	rm -f $(NAME)
 	make -C $(LIBFT_DIR) fclean
 
-re:fclean all
+re: fclean all
 
-.PHONY: clean
+.PHONY: all clean fclean re

@@ -1,10 +1,10 @@
-NO textures/HITLER.png
+NO textures/north.png
 
-SO textures/eagle.png
+SO textures/south.png
 
-EA textures/brick.png
+EA textures/east.png
 
-WE textures/hitlerflag.png
+WE textures/west.png
 
 F 255,3,255
 

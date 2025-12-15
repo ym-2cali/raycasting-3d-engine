@@ -78,7 +78,7 @@ int	get_map(t_cred_list *list, t_map **cub)
 	t_cred_list	*tmp;
 	char		**map;
 	int			index;
-	int			map_sz;
+	// int			map_sz;
 
 	index = 0;
 	map = malloc(sizeof(char *) * (map_size(list) + 1));

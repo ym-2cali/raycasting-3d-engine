@@ -16,7 +16,6 @@ int	check_dup(t_cred_list *list, char *to_check)
 {
 	t_cred_list	*tmp;
 	char		**p;
-	char		*t;
 	int			counter;
 
 	counter = 0;
@@ -40,11 +39,7 @@ int	check_dup(t_cred_list *list, char *to_check)
 
 int	missing_or_dup(t_cred_list *list)
 {
- 	t_cred_list *tmp;
-	int			checker;
 
-	checker = 0;
-	tmp = list;
 	if (check_dup(list, "SO") > 1 || check_dup(list, "WE") > 1 ||  check_dup(list, "EA") > 1
 		|| check_dup(list, "NO") > 1 || check_dup(list, "C") > 1 ||check_dup(list, "F") > 1)
 		return (printf("error DUPLICATED lines in map file !\n"), 0);
@@ -94,13 +89,11 @@ int	asign_texters(t_cred_list *list, t_map **cub)
 
 int	asign_colors(t_cred_list *list, t_map **cb_st)
 {
-	int		i;
 	char	**c;
 	char	**f;
 	char	*tmp;
 	char	*tmp1;
 	
-	i = 0;
 	tmp1 = get_wanted_line(list, "C");
 	tmp = get_wanted_line(list, "F");
 	if (!tmp1 || !tmp)
@@ -111,9 +104,9 @@ int	asign_colors(t_cred_list *list, t_map **cb_st)
 	f = ft_split(tmp + 2, ',');
 	if (!c || !f)
 		return (0);
-	else if (td_len(f) < 3 || td_len(c) < 3)
+	if (td_len(f) < 3 || td_len(c) < 3)
 		return (printf("Error\nmissing a colors\n"), 0);
-		(*cb_st)->floor_color[0] = ft_atoi(f[0]);
+	(*cb_st)->floor_color[0] = ft_atoi(f[0]);
 		(*cb_st)->floor_color[1] = ft_atoi(f[1]);
 		(*cb_st)->floor_color[2] = ft_atoi(f[2]);
 		(*cb_st)->ceiling_color[0] = ft_atoi(c[0]);
