@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:03:21 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/17 02:11:49 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/18 22:52:04 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int	main(int ac, char **av)
 	}
 	if (!get_img(map))
 		return (1);
-	draw_imgs(map);
+	// draw_imgs(map);
 	// map_rendering(&map, 0, 0);
 	mlx_image_to_window(map->mlx, map->dir_img, 0, 0);
 	mlx_loop_hook(map->mlx, &key_events, map);

@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:11:58 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/18 01:18:15 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/18 23:24:15 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <errno.h>
-# include "/home/yael-maa/yahya/cub3d/MLX422/include/MLX42/MLX42.h"
+# include "/home/yael-maa/cub3d/yahya/cub3d/MLX422/include/MLX42/MLX42.h"
 # include <fcntl.h>
 # include <math.h>
 # include "../parsing/get_next_line/get_next_line.h"
@@ -111,7 +111,7 @@ void		line_dir(t_map *map, int x, int y, uint32_t color);
 void		map_rendering(t_map *map, int x, int y);
 void		draw_imgs(t_map *map);
 void 		update_player(t_map *map);
-double		DDA(t_map *map, double x0, double x1, double y0, double y1);
+double		dda(t_map *map, double x0, double x1, double y0, double y1);
 void		ray_caster(t_map *map);
 int			check_wall(t_map *map, double x, double y);
 void	destroy_imgs(t_map *map);
