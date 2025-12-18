@@ -6,98 +6,47 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 17:49:56 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/18 01:35:12 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/18 02:40:19 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-
-void	round_it(t_map *map, int *i, int *j, int *flag)
-{
-	if (map->player.rotation_angle >= 0 && map->player.rotation_angle <  M_PI / 2)
-	{
-		while (*j % 32)
-			(*j)--;
-		while (*i % 32)
-			(*i)--;
-		*flag = 1;
-	}
-	else if (map->player.rotation_angle >= M_PI / 2 && map->player.rotation_angle < M_PI)
-	{
-		while (*j % 32)
-			(*j)++;
-		while (*i % 32)
-			(*i)--;	
-		*flag = 2;
-	}
-	else if (map->player.rotation_angle >= M_PI && map->player.rotation_angle < 3 * M_PI / 2)
-	{
-		while (*j % 32)
-			(*j)++;
-		while (*i % 32)
-			(*i)++;
-		*flag = 3;	
-	}
-	else if (map->player.rotation_angle >= 3 * M_PI / 2 && map->player.rotation_angle <= 2 * M_PI)
-	{
-		while (*j % 32)
-			(*j)--;
-		while (*i % 32)
-			(*i)++;
-		*flag = 4;
-	}
-}
-
-int	check_horizontal(t_map *map, double x, double y)
-{
-	int	i;
-	int	j;
-
-	i = trunc(y);
-	j = trunc(x);
-	while (j % 32 != 0)
-		j--;
-	i /= TILE_SIZE;
-	j /= TILE_SIZE;
-	if (i < 0 || i >= map->map_height || j < 0 || j >= ft_strlens(map->arr[i]))
-		return (0);
-	if (map->arr[i][j] != '1')
-		return (1);
-	return (0);
-}
-
-
-int	check_vertical(t_map *map, double x, double y)
-{
-	int	i;
-	int	j;
-
-	i = trunc(y);
-	j = trunc(x);
-	while (i % 32 != 0)
-		i--;
-	i /= TILE_SIZE;
-	j /= TILE_SIZE;
-	if (i < 0 || i >= map->map_height || j < 0 || j >= ft_strlens(map->arr[i]))
-		return (0);
-	if (map->arr[i][j] != '1')
-		return (1);
-	return (0);
-}
-
 int	check_wall(t_map *map, double x, double y)
 {
 	int		j;
 	int		i;
+	double	rad;
+	int		tx;
+	int		ty;
 
+	rad = 3.0;
 	j = (int)(x / TILE_SIZE);
 	i = (int)(y / TILE_SIZE);
+	printf("i = %d j = %d\n", i, j);
 	if (i < 0 || i >= map->map_height || j < 0 || j >= ft_strlens(map->arr[i]))
 		return (0);
-	if (check_horizontal(map, x, y) && check_vertical(map, x, y))
-		return (1);
-	return (0);
+	if (map->arr[i][j] == '1')
+		return (0);
+	i = -rad;
+	while (i <= rad)
+	{
+		j = -rad;
+		while (j <= rad)
+		{
+			tx = (x + j) / TILE_SIZE;
+			ty = (y + i) / TILE_SIZE;
+			if (map->arr[ty][tx] == '1'){
+				printf("ty = %d tx = %d\n", ty, tx);
+				return (0);
+			}
+			j += rad;
+		}
+		i += rad;
+	}
+	// if (check_horizontal(map, x, y) && check_vertical(map, x, y))
+	// 	return (1);
+	return (1);
 }
 
 void 	update_player(t_map *map)
