@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:11:58 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/13 18:40:06 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/18 01:18:15 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,25 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <errno.h>
-# include <MLX42/MLX42.h>
+# include "/home/alel-you/yahya/cub3d/MLX422/include/MLX42/MLX42.h"
 # include <fcntl.h>
 # include <math.h>
 # include "../parsing/get_next_line/get_next_line.h"
 # include "../parsing/libft/libft.h"
 
-# define ROTAT_ANGLE (M_PI / 2)
+// # define ROTAT_ANGLE (M_PI / 2)
 # define TILE_SIZE 32 
 # define WINDOW_WIDTH (34 * TILE_SIZE)
 # define WINDOW_HEIGHT (14 * TILE_SIZE)
-# define MOVE_SPEED 3.0
+# define MOVE_SPEED 6.0
 # define ROTAT_SPEED (3 * (M_PI / 180))
 # define FOV 60 * (M_PI / 180)
+// # define TILE_SIZE (2 * (M_PI / 180))
 
 typedef struct s_cred_list
 {
-	char						*content;
-	struct s_cred_list			*next;
+	char				*content;
+	struct s_cred_list	*next;
 }	t_cred_list;
 
 typedef enum s_spawning_or
@@ -69,44 +70,33 @@ typedef struct s_inter
 	double	y;
 } t_inter;
 
-typedef struct s_ray_data
-{
-	double	angle;
-	double	hit_x;
-	double	hit_y;
-	int		is_vertical;
-	double	wall_dis;
-	int		wall_start;
-	int		wall_end;
-}	t_ray_data;
-
 typedef struct s_map
 {
-	void*			mlx;
-	char			**arr;
-	mlx_image_t*	img;
-	mlx_image_t*	floor_img;
-	mlx_image_t*	wall_img;
-	mlx_image_t*	player_img;
-	mlx_image_t*	dir_img;
-	t_player_pos	player;
-	t_inter			inter;
-	int				floor_color[3];
-	int				ceiling_color[3];
-	int				map_height;
-	int				map_width;
-	int				x_size;
-	int				y_size;
-	double			rad;
-	int				f;
+	void*				mlx;
+	char				**arr;
+	mlx_image_t*		img;
+	mlx_image_t*		floor_img;
+	mlx_image_t*		wall_img;
+	mlx_image_t*		player_img;
+	mlx_image_t*		dir_img;
+	t_player_pos		player;
+	t_inter				inter;
+	int					floor_color[3];
+	int					ceiling_color[3];
+	int					map_height;
+	int					map_width;
+	int					x_size;
+	int					y_size;
+	double				rad;
+	int					f;
 	char				*no_texture;
 	char				*so_texture;
 	char				*we_texture;
 	char				*ea_texture;
-	mlx_texture_t		*north_tex;
-	mlx_texture_t		*south_tex;
-	mlx_texture_t		*west_tex;
-	mlx_texture_t		*east_tex;
+	mlx_texture_t		*north_texture;
+	mlx_texture_t		*south_texture;
+	mlx_texture_t		*west_texture;
+	mlx_texture_t		*east_texture;
 } t_map ;
 
 void			player_img(t_map *map, uint32_t color);
@@ -125,37 +115,42 @@ double			DDA(t_map *map, double x0, double x1, double y0, double y1);
 void			ray_caster(t_map *map);
 int				check_wall(t_map *map, double x, double y);
 void			destroy_imgs(t_map *map);
-t_player_facing	player_facing(double *angle, int flag);
+void			draw_wall_with_texture(t_map *map, int x, double ray_angle, double hor_dist, double ver_dist, double wall_dis);
 // --------------------------
-t_cred_list	*grap_credantials(int fd);
-int 		extract_credantials(t_map **cb_st, int fd);
-int 		valid_map_arg(char *arg);
-int			parse_arguments(t_map **cb_st, char **av);
-int			missing_or_dup(t_cred_list *list);
-int			check_content_order(t_cred_list *list);
-int			asign_texters(t_cred_list *list, t_map **cub);
-int			asign_colors(t_cred_list *list, t_map **cb_st);
-int			get_map(t_cred_list *list, t_map **cub);
-int			parse_map(char **map, t_map **cb_st, t_cred_list *list);
-char		**dup_map(char **map, t_cred_list *list);
-int			empty_line(char *line);
-int			is_player(char c);
-int	get_largest_row(t_cred_list *list);
-void	player_position(char **map, t_map **cub);
-int	td_len(char **td);
-char	*get_wanted_line(t_cred_list *list, char *wanted);
-int	a_valid_argb(char *str);
-int	is_map_line(char *line);
-int	add_content(t_cred_list **list, char *content);
-int closed_map(char **map);
-int	one_player_on_map(char **map);
-int	cub_items(char *line);
-void	print_cred(t_map *cb);
-int	get_window(t_map *map);
-void	key_events(void* param);
-int	validate_all_textures(t_map *map);
-int	load_all_textures(t_map *map);
-void	free_textures(t_map *map);
-uint32_t	sample_texture(mlx_texture_t *tex, double hit_pos,
-				int pixel_y, int wall_start, int wall_height);
+t_player_facing	player_facing(double *angle, int flag);
+mlx_texture_t	*load_texture_safe(const char *path, const char *name);
+int				load_all_textures(t_map *map);
+// --------------------------
+t_cred_list		*grap_credantials(int fd);
+int 			extract_credantials(t_map **cb_st, int fd);
+int 			valid_map_arg(char *arg);
+int				parse_arguments(t_map **cb_st, char **av);
+int				missing_or_dup(t_cred_list *list);
+int				check_content_order(t_cred_list *list);
+int				asign_texters(t_cred_list *list, t_map **cub);
+int				asign_colors(t_cred_list *list, t_map **cb_st);
+int				get_map(t_cred_list *list, t_map **cub);
+int				parse_map(char **map, t_map **cb_st, t_cred_list *list);
+char			**dup_map(char **map, t_cred_list *list);
+int				empty_line(char *line);
+int				is_player(char c);
+int				get_largest_row(t_cred_list *list);
+void			player_position(char **map, t_map **cub);
+int				td_len(char **td);
+char			*get_wanted_line(t_cred_list *list, char *wanted);
+int				a_valid_argb(char *str);
+int				is_map_line(char *line);
+int				add_content(t_cred_list **list, char *content);
+int 			closed_map(char **map);
+int				one_player_on_map(char **map);
+int				cub_items(char *line);
+void			print_cred(t_map *cb);void	print_td(char **str);
+int				check_dup(t_cred_list *list, char *to_check);
+char			*equal_rows(char *line_map, int len);
+int				valid_map_arg(char *arg);
+int				map_size(t_cred_list *list);
+int				asign_map(t_cred_list *list, t_map **cub);
+void			player_spwn_or(char s, t_map **cub);
+int				validate_all_textures(t_map *map);
+
 #endif

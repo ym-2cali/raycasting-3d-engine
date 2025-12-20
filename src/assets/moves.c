@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 17:49:56 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/15 16:56:15 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/18 01:35:12 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	round_it(t_map *map, int *i, int *j, int *flag)
 			(*i)++;
 		*flag = 3;	
 	}
-	else if (map->player.rotation_angle >= 3 * M_PI / 2 && map->player.rotation_angle < 2 * M_PI)
+	else if (map->player.rotation_angle >= 3 * M_PI / 2 && map->player.rotation_angle <= 2 * M_PI)
 	{
 		while (*j % 32)
 			(*j)--;
@@ -86,57 +86,17 @@ int	check_vertical(t_map *map, double x, double y)
 	return (0);
 }
 
-int	check_between(t_map *map, double x, double y)
-{
-	(void)map;
-	(void)x;
-	(void)y;
-	// int	i;
-	// int	j;
-	// int	flag;
-
-	// i = floor(y);
-	// j = floor(x);
-	// flag = 0;
-	// round_it(map, &i, &j, &flag);
-	// i /= TILE_SIZE;
-	// j /= TILE_SIZE;
-	// printf("%d\n",flag);
-	// if (flag == 1)
-	// {
-	// 	if (map->arr[i - 1][j] == '1' && map->arr[i][j - 1] == '1')
-	// 		return (0);
-	// }
-	// else if (flag == 2)
-	// {
-	// 	if (map->arr[i][j] == '1' && map->arr[i - 1][j - 1] == '1')
-	// 		return (0);
-	// }
-	// else if (flag == 3)
-	// {
-	// 	if (map->arr[i][j - 1] == '1' && map->arr[i - 1][j] == '1')
-	// 		return (0);
-	// }
-	// else if (flag == 4)
-	// {
-	// 	if (map->arr[i][j] != '1' && map->arr[i - 1][j - 1] != '1')	
-	// 		return (0);
-	// }
-	return (1);
-}
-
 int	check_wall(t_map *map, double x, double y)
 {
-	int	j;
-	int	i;
+	int		j;
+	int		i;
 
 	j = (int)(x / TILE_SIZE);
-	i = (int)(y / TILE_SIZE);	
+	i = (int)(y / TILE_SIZE);
 	if (i < 0 || i >= map->map_height || j < 0 || j >= ft_strlens(map->arr[i]))
 		return (0);
-	if (check_horizontal(map, x, y) && check_vertical(map, x, y) && check_between(map, x, y))
+	if (check_horizontal(map, x, y) && check_vertical(map, x, y))
 		return (1);
-	// return 1;
 	return (0);
 }
 
@@ -147,8 +107,6 @@ void 	update_player(t_map *map)
 	double	x;
 	double	y;
 
-	x = 0;
-	y = 0.0;
 	if (map->f != 0)
 	    move_steps = MOVE_SPEED;
 	else

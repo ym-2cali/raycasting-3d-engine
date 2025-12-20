@@ -19,7 +19,7 @@ char	*get_wanted_line(t_cred_list *list, char *wanted)
 	tmp = list;
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp->content, wanted,ft_strlen(wanted)))
+		if (!ft_strncmp(tmp->content, wanted, ft_strlen(wanted)))
 			return (ft_strdup(tmp->content));
 		tmp = tmp->next;
 	}

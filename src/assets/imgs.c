@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:02:45 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/13 18:46:36 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/18 01:25:34 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	get_img(t_map *map)
 	map->dir_img = mlx_new_image(map->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!map->floor_img || !map->wall_img || !map->img || !map->player_img || !map->dir_img)
 	{
-		write(2, "Image creation failed\n", 23);
+		write(2, "Image Creation Failed\n", 23);
 		destroy_imgs(map);
 		return (0);
 	}
@@ -106,8 +106,6 @@ void	line_dir(t_map *map, int x, int y, uint32_t color)
 
 void	player_img(t_map *map, uint32_t color)
 {
-	(void)map;
-	(void)color;
 	// double	cx;
 	// double	cy;
 	// double	y;

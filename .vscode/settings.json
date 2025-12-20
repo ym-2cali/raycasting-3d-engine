@@ -1,9 +1,0 @@
-{
-    "C_Cpp.errorSquiggles": "disabled",
-    "files.associations": {
-        "math.h": "c",
-        "cstdint": "c",
-        "errno.h": "c",
-        "cmath": "c"
-    }
-}
