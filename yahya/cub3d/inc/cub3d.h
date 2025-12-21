@@ -17,11 +17,17 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <errno.h>
-# include "/home/yael-maa/cub3d/MLX422/include/MLX42/MLX42.h"
+# include "/home/alel-you/cub3d/yahya/cub3d/MLX422/include/MLX42/MLX42.h"
 # include <fcntl.h>
 # include <math.h>
 # include "../parsing/get_next_line/get_next_line.h"
 # include "../parsing/libft/libft.h"
+
+typedef struct s_mem
+{
+	void			*ptr;
+	struct s_mem	*next;
+}	t_mem;
 
 // # define ROTAT_ANGLE (M_PI / 2)
 # define TILE_SIZE 32 
@@ -152,5 +158,9 @@ int				map_size(t_cred_list *list);
 int				asign_map(t_cred_list *list, t_map **cub);
 void			player_spwn_or(char s, t_map **cub);
 int				validate_all_textures(t_map *map);
+void			*alloc(size_t size);
+void			clean_one(void *ptr);
+void			clean_all(void);
+t_mem			**get_mem(void);
 
 #endif

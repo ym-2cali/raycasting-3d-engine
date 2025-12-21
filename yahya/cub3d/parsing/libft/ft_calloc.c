@@ -21,7 +21,7 @@ void	*ft_calloc(size_t count, size_t size)
 	if (size != 0 && count > MAX_SIZE / size)
 		return (rest);
 	len = count * size;
-	rest = malloc(len);
+	rest = alloc(len);
 	ft_memset(rest, 0, len);
 	return (rest);
 }

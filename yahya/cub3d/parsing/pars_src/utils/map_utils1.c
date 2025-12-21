@@ -46,7 +46,7 @@ char	*equal_rows(char *line_map, int len)
 
 	x = 0;
 	i = 0;
-	dup = malloc(len + 1);
+	dup = alloc(len + 1);
 	if (!dup)
 		return (NULL);
 	while (i < len && line_map[i])

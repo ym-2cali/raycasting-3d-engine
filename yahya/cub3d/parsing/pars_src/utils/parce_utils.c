@@ -41,7 +41,7 @@ t_cred_list	*grap_credantials(int fd)
 
 	f = 0;
 	line = get_next_line(fd);
-	list = malloc(sizeof(t_cred_list));
+	list = alloc(sizeof(t_cred_list));
 	if (!list || !line)
 		return (NULL);
 	list = NULL;

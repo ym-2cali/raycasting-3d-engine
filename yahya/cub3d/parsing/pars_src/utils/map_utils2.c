@@ -22,7 +22,7 @@ char	**dup_map(char **map, t_cred_list *list)
 		return (NULL);
 	i = 0;
 	largest_row = get_largest_row(list);
-	dup_map = malloc(sizeof(char *) * (td_len(map) + 1));
+	dup_map = alloc(sizeof(char *) * (td_len(map) + 1));
 	if (!dup_map)
 		return (0);
 	while (i < td_len(map))

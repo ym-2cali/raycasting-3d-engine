@@ -52,7 +52,7 @@ int	add_content(t_cred_list **list, char *content)
 	t_cred_list	*tmp;
 
 	tmp = NULL;
-	node = malloc(sizeof(t_cred_list));
+	node = alloc(sizeof(t_cred_list));
 	if (!node || !list || !content)
 		return (0);
 	node->content = content;
