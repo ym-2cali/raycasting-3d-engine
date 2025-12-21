@@ -38,7 +38,7 @@ $(NAME): $(OBJF)
 	@echo libft.a created
 
 %.o: %.c libft.h
-	@$(CC) $(FLAGS) -c $< -o $@
+	@$(CC) $(FLAGS) -I../../MLX422/include -c $< -o $@
 
 bonus: $(BONUS_OBJF)
 	@ar rc $(NAME) $(BONUS_OBJF)

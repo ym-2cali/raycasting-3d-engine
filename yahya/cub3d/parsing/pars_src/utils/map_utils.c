@@ -73,18 +73,12 @@ int	get_largest_row(t_cred_list *list)
 	return (largest);
 }
 
-int	get_map(t_cred_list *list, t_map **cub)
+static int	fill_map_array(char **map, t_cred_list *list)
 {
 	t_cred_list	*tmp;
-	char		**map;
 	int			index;
-	int			map_sz;
 
 	index = 0;
-	map = malloc(sizeof(char *) * (map_size(list) + 1));
-	if (!map)
-		return (0);
-	map[map_size(list)] = NULL;
 	tmp = list;
 	while (tmp && !is_map_line(tmp->content))
 		tmp = tmp->next;
@@ -96,6 +90,19 @@ int	get_map(t_cred_list *list, t_map **cub)
 		index++;
 		tmp = tmp->next;
 	}
+	return (1);
+}
+
+int	get_map(t_cred_list *list, t_map **cub)
+{
+	char	**map;
+
+	map = malloc(sizeof(char *) * (map_size(list) + 1));
+	if (!map)
+		return (0);
+	map[map_size(list)] = NULL;
+	if (!fill_map_array(map, list))
+		return (0);
 	(*cub)->map_width = get_largest_row(list);
 	if (!parse_map(map, cub, list))
 		return (0);

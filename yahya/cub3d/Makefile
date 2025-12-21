@@ -2,9 +2,9 @@ LIBFT_DIR = parsing/libft
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC= src/main.c src/assets/imgs.c src/assets/moves.c src/assets/ray_caster.c src/window.c src/utils/lib_ft.c src/assets/wall_projection.c \
-	parsing/get_next_line/get_next_line.c parsing/get_next_line/get_next_line_utils.c parsing/pars_src/utils/map_utils.c parsing/pars_src/utils/map_utils1.c parsing/pars_src/utils/parce_utils.c \
-    parsing/pars_src/utils/utils.c  parsing/pars_src/utils/utils1.c parsing/pars_src/parse.c parsing/pars_src/tools.c
+SRC= src/main.c src/assets/imgs.c src/assets/moves.c src/assets/ray_caster.c src/window.c src/utils/lib_ft.c parsing/pars_src/utils/texture_loader.c src/assets/wall_projection.c \
+	parsing/get_next_line/get_next_line.c parsing/get_next_line/get_next_line_utils.c parsing/pars_src/utils/map_utils.c parsing/pars_src/utils/map_utils1.c parsing/pars_src/utils/map_utils2.c parsing/pars_src/utils/map_utils3.c parsing/pars_src/utils/parce_utils.c parsing/pars_src/utils/parce_utils2.c \
+    parsing/pars_src/utils/utils.c parsing/pars_src/utils/utils1.c parsing/pars_src/utils/utils2.c parsing/pars_src/utils/parse.c parsing/pars_src/utils/texture_validation.c
 
 OBJS= $(SRC:.c=.o)
 

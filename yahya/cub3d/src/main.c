@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:03:21 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/18 22:52:04 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/21 02:15:14 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	key_events(void* param)
 
 	if (mlx_is_key_down(map->mlx, MLX_KEY_ESCAPE))
 	{
+		destroy_imgs(map);
 		mlx_terminate(map->mlx);
 		exit (0);
 	}
@@ -94,7 +95,7 @@ t_player_facing	player_facing(double *angle, int flag)
         else
             return (UP);
     }
-    if (a < M_PI_2 || a > 3 * M_PI_2)
+    if (a < M_PI / 2 || a > 3 * M_PI / 2)
         return (RIGHT);
     else
         return (LEFT);
@@ -105,11 +106,8 @@ int	main(int ac, char **av)
 	t_map *map;
 
 // pars ----------------------------------
-	printf("here 1\n");
 	map = NULL;
-	printf("here 2\n");
 	// ft_bzero(map, sizeof(t_map));
-	printf("here 3\n");
 	if (ac <= 1)
 		return (printf("invalid arguments !!!\n"), 1);
 	map = malloc(sizeof(t_map));
@@ -123,19 +121,9 @@ int	main(int ac, char **av)
 	double	x = 0;
 	double	y = 0;
 	map->rad = TILE_SIZE / 4;
-	player_pos(map);
-	map->no_texture = "textures/download.png";
-	// Load textures
-	map->north_texture = mlx_load_png(map->no_texture);
-	map->south_texture = mlx_load_png(map->no_texture);
-	map->west_texture = mlx_load_png(map->no_texture);
-	map->east_texture = mlx_load_png(map->no_texture);
-	if (!map->north_texture || !map->south_texture || 
-		!map->west_texture || !map->east_texture)
-	{
-		printf("Error loading textures\n");
+	if (!load_all_textures(map))
 		return (1);
-	}
+	player_pos(map);
 	if (!get_img(map))
 		return (1);
 	// draw_imgs(map);
@@ -143,5 +131,7 @@ int	main(int ac, char **av)
 	mlx_image_to_window(map->mlx, map->dir_img, 0, 0);
 	mlx_loop_hook(map->mlx, &key_events, map);
 	mlx_loop(map->mlx);
+	destroy_imgs(map);
 	mlx_terminate(map->mlx);
+	return (0);
 }

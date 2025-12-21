@@ -46,7 +46,7 @@ double vertical_intersection(t_map *map, double angle, double *hit_x, double *hi
     double y_inter, x_inter;
     double y_step, x_step;
 
-    int facing_right = (angle < M_PI_2 || angle > 3*M_PI_2);
+    int facing_right = (angle < M_PI / 2 || angle > 3 * M_PI / 2);
     int facing_left = !facing_right;
     x_inter = floor(map->player.x / TILE_SIZE) * TILE_SIZE;
     if (facing_right)
@@ -72,103 +72,138 @@ double vertical_intersection(t_map *map, double angle, double *hit_x, double *hi
     return 1e30;
 }
 
-void draw_wall_with_texture(t_map *map, int x, double ray_angle, double hor_dist, double ver_dist, double wall_dis)
+static void calculate_wall_boundaries(double wall_dis, int *wall_start, int *wall_end)
 {
-    int y = 0;
-    int wall_start = WINDOW_HEIGHT / 2 - (int)wall_dis;
-    int wall_end = WINDOW_HEIGHT / 2 + (int)wall_dis;
+    *wall_start = WINDOW_HEIGHT / 2 - (int)wall_dis;
+    *wall_end = WINDOW_HEIGHT / 2 + (int)wall_dis;
+    
+    if (*wall_start < 0)
+        *wall_start = 0;
+    if (*wall_end > WINDOW_HEIGHT)
+        *wall_end = WINDOW_HEIGHT;
+}
+
+static mlx_texture_t *select_texture(t_map *map, double ray_angle, 
+                                      double hor_dist, double ver_dist, double *wall_x)
+{
+    int facing_up;
+    int facing_right;
     mlx_texture_t *texture;
-    double wall_x;
-    int tex_x;
-    int facing_up, facing_right;
     
-    // Clamp wall boundaries
-    if (wall_start < 0)
-        wall_start = 0;
-    if (wall_end > WINDOW_HEIGHT)
-        wall_end = WINDOW_HEIGHT;
-    
-    // Determine ray direction
     facing_up = (ray_angle > M_PI && ray_angle < 2 * M_PI);
-    facing_right = (ray_angle < M_PI_2 || ray_angle > 3 * M_PI_2);
+    facing_right = (ray_angle < M_PI / 2 || ray_angle > 3 * M_PI / 2);
     
-    // STEP 1: Select texture based on wall orientation
     if (hor_dist < ver_dist)
     {
-        // Horizontal wall hit
         if (facing_up)
             texture = map->north_texture;
         else
             texture = map->south_texture;
-        
-        // Calculate X position on wall
-        wall_x = map->player.x + hor_dist * cos(ray_angle);
+        *wall_x = map->player.x + hor_dist * cos(ray_angle);
     }
     else
     {
-        // Vertical wall hit
         if (facing_right)
             texture = map->east_texture;
         else
             texture = map->west_texture;
-        
-        // Calculate Y position on wall
-        wall_x = map->player.y + ver_dist * sin(ray_angle);
+        *wall_x = map->player.y + ver_dist * sin(ray_angle);
     }
+    return texture;
+}
+
+static int calculate_texture_x(mlx_texture_t *texture, double wall_x, 
+                                double ray_angle, double hor_dist, double ver_dist)
+{
+    int facing_up;
+    int facing_right;
+    int tex_x;
     
-    // STEP 2: Calculate texture X coordinate
+    if (!texture)
+        return (0);
+    facing_up = (ray_angle > M_PI && ray_angle < 2 * M_PI);
+    facing_right = (ray_angle < M_PI / 2 || ray_angle > 3 * M_PI / 2);
     wall_x /= TILE_SIZE;
-    wall_x = wall_x - floor(wall_x);  // Get fractional part
+    wall_x = wall_x - floor(wall_x);
     tex_x = (int)(wall_x * texture->width);
-    
-    // STEP 3: Handle texture flipping
-    // South walls (horizontal, facing down) need flipping
     if (hor_dist < ver_dist && !facing_up)
         tex_x = texture->width - tex_x - 1;
-    // East walls (vertical, facing right) need flipping
     if (hor_dist >= ver_dist && facing_right)
         tex_x = texture->width - tex_x - 1;
-    
-    // Clamp tex_x
     if (tex_x < 0)
         tex_x = 0;
     if (tex_x >= (int)texture->width)
         tex_x = texture->width - 1;
+    return tex_x;
+}
+
+static void draw_ceiling(t_map *map, int x, int wall_start)
+{
+    int y;
     
-    // Draw ceiling
+    y = 0;
     while (y < wall_start)
+    {
         mlx_put_pixel(map->dir_img, x, y++, get_color(map->ceiling_color[0], 
                      map->ceiling_color[1], map->ceiling_color[2], 255));
+    }
+}
+
+static void draw_floor(t_map *map, int x, int wall_end)
+{
+    int y;
     
-    // STEP 4: Draw textured wall
+    y = wall_end;
+    while (y < WINDOW_HEIGHT)
+    {
+        mlx_put_pixel(map->dir_img, x, y++, get_color(map->floor_color[0], 
+                     map->floor_color[1], map->floor_color[2], 255));
+    }
+}
+
+static void draw_textured_wall(t_map *map, mlx_texture_t *texture, int x, 
+                                int wall_start, int wall_end, int tex_x, double wall_dis)
+{
+    int tex_y;
+    int pixel_index;
+    uint8_t *pixel;
+    uint32_t color;
+    double wall_y;
+    
+    if (!texture)
+        return ;
     while (wall_start < wall_end)
     {
-        // Calculate vertical texture coordinate
-        double wall_y = (double)(wall_start - (WINDOW_HEIGHT / 2 - (int)wall_dis)) 
-                       / (double)(wall_dis * 2);
-        int tex_y = (int)(wall_y * texture->height);
-        
-        // Clamp tex_y
+        wall_y = (double)(wall_start - (WINDOW_HEIGHT / 2 - (int)wall_dis)) 
+                / (double)(wall_dis * 2);
+        tex_y = (int)(wall_y * texture->height);
         if (tex_y < 0)
             tex_y = 0;
         if (tex_y >= (int)texture->height)
             tex_y = texture->height - 1;
-        
-        // Get pixel from texture
-        int pixel_index = (tex_y * texture->width + tex_x) * texture->bytes_per_pixel;
-        uint8_t *pixel = &texture->pixels[pixel_index];
-        
-        // Compose color (RGBA format)
-        uint32_t color = (pixel[0] << 24) | (pixel[1] << 16) | 
-                        (pixel[2] << 8) | pixel[3];
-        
+        pixel_index = (tex_y * texture->width + tex_x) * texture->bytes_per_pixel;
+        pixel = &texture->pixels[pixel_index];
+        color = (pixel[0] << 24) | (pixel[1] << 16) | (pixel[2] << 8) | pixel[3];
         mlx_put_pixel(map->dir_img, x, wall_start++, color);
     }
+}
+
+void draw_wall_with_texture(t_map *map, int x, double ray_angle, 
+                             double hor_dist, double ver_dist, double wall_dis)
+{
+    int wall_start;
+    int wall_end;
+    mlx_texture_t *texture;
+    double wall_x;
+    int tex_x;
     
-    // Draw floor
-    while (wall_end < WINDOW_HEIGHT)
-        mlx_put_pixel(map->dir_img, x, wall_end++, get_color(map->floor_color[0], 
-                     map->floor_color[1], map->floor_color[2], 255));
+    calculate_wall_boundaries(wall_dis, &wall_start, &wall_end);
+    texture = select_texture(map, ray_angle, hor_dist, ver_dist, &wall_x);
+    tex_x = calculate_texture_x(texture, wall_x, ray_angle, hor_dist, ver_dist);
+    
+    draw_ceiling(map, x, wall_start);
+    draw_textured_wall(map, texture, x, wall_start, wall_end, tex_x, wall_dis);
+    draw_floor(map, x, wall_end);
 }
 
 
@@ -193,8 +228,6 @@ void ray_caster(t_map *map)
         ver_dist = vertical_intersection(map, ray_angle, &ver_x, &ver_y);
         double nm = hor_dist < ver_dist ? hor_dist : ver_dist; 
         wall_dis = (TILE_SIZE * WINDOW_HEIGHT) / (nm * cos(ray_angle - map->player.rotation_angle));
-        
-        // Draw wall with texture
         draw_wall_with_texture(map, i, ray_angle, hor_dist, ver_dist, wall_dis);
     }
 }
