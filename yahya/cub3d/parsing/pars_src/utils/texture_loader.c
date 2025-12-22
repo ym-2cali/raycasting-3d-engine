@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_loader.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alel-you <alel-you@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 05:30:00 by alel-you          #+#    #+#             */
-/*   Updated: 2025/12/14 05:30:00 by alel-you         ###   ########.fr       */
+/*   Updated: 2025/12/22 21:42:29 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ static char	*get_texture_path(char *line)
 		return (NULL);
 	trimmed = ft_strtrim(parts[i], " \n\t");
 	path = ft_strdup(trimmed);
-	free(trimmed);
-	i = 0;
-	while (parts[i])
-		free(parts[i++]);
-	free(parts);
 	return (path);
 }
 
@@ -46,7 +41,6 @@ static mlx_texture_t	*load_one_texter(char *texture_line)
 	if (!path)
 		return (NULL);
 	texture = mlx_load_png(path);
-	free(path);
 	return (texture);
 }
 

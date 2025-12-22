@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:03:21 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/21 02:15:14 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/22 22:51:21 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	key_events(void* param)
 
 	if (mlx_is_key_down(map->mlx, MLX_KEY_ESCAPE))
 	{
+		clean_all();
 		destroy_imgs(map);
 		mlx_terminate(map->mlx);
 		exit (0);
@@ -110,22 +111,23 @@ int	main(int ac, char **av)
 	// ft_bzero(map, sizeof(t_map));
 	if (ac <= 1)
 		return (printf("invalid arguments !!!\n"), 1);
-	map = malloc(sizeof(t_map));
-	if (!map)
-		return (perror(""), 1);
+	map = alloc(sizeof(t_map));
 	if (!parse_arguments(&map, av))
-		return (1);
+		return (clean_all(), 1);
 //	rc ---------------------------------
 	if (get_window(map))
-		return (write(2, "graphics connection Failed\n", 27), 1);
+	{
+		write(2, "graphics connection Failed\n", 27);
+		return (clean_all(), 1);
+	}
 	double	x = 0;
 	double	y = 0;
 	map->rad = TILE_SIZE / 4;
 	if (!load_all_textures(map))
-		return (1);
+		return (clean_all(), 1);
 	player_pos(map);
 	if (!get_img(map))
-		return (1);
+		return (clean_all(), 1);
 	// draw_imgs(map);
 	// map_rendering(&map, 0, 0);
 	mlx_image_to_window(map->mlx, map->dir_img, 0, 0);
@@ -133,5 +135,6 @@ int	main(int ac, char **av)
 	mlx_loop(map->mlx);
 	destroy_imgs(map);
 	mlx_terminate(map->mlx);
+	clean_all();
 	return (0);
 }

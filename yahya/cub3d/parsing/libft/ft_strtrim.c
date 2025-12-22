@@ -32,7 +32,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (start >= end)
 		return (ft_strdup(""));
 	len = (end - start + 1);
-	new = malloc(len + 1);
+	new = alloc(len + 1);
 	while (s1[start] && i < len)
 		new[i++] = s1[start++];
 	new[i] = '\0';

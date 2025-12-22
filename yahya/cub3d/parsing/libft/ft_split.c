@@ -62,12 +62,12 @@ char	**ft_split(char *s, char c)
 	p.len = 0;
 	p.n = 0;
 	p.words = ft_words_count(s, c);
-	p.sp = malloc(sizeof(char *) * (p.words + 1));
+	p.sp = alloc(sizeof(char *) * (p.words + 1));
 	while (p.i < p.words)
 	{
 		p.x = 0;
 		p.len = ft_lenght(s + p.n, c);
-		p.sp[p.i] = malloc(p.len + 1);
+		p.sp[p.i] = alloc(p.len + 1);
 		while (s[p.n] && s[p.n] == c)
 			p.n++;
 		while (s[p.n] && s[p.n] != c)
