@@ -19,7 +19,7 @@ char	*get_wanted_line(t_cred_list *list, char *wanted)
 	tmp = list;
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp->content, wanted,ft_strlen(wanted)))
+		if (!ft_strncmp(tmp->content, wanted, ft_strlen(wanted)))
 			return (ft_strdup(tmp->content));
 		tmp = tmp->next;
 	}
@@ -52,7 +52,7 @@ int	add_content(t_cred_list **list, char *content)
 	t_cred_list	*tmp;
 
 	tmp = NULL;
-	node = malloc(sizeof(t_cred_list));
+	node = alloc(sizeof(t_cred_list));
 	if (!node || !list || !content)
 		return (0);
 	node->content = content;

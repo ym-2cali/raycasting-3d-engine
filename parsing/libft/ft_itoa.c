@@ -56,7 +56,7 @@ char	*ft_itoa(int a)
 	if (a == -0)
 		return (ft_strdup("0"));
 	len = ft_a_len(a);
-	str = malloc(len + 1);
+	str = alloc(len + 1);
 	str[len] = '\0';
 	len--;
 	if (a < 0)

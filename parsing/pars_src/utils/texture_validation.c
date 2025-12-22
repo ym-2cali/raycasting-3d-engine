@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   texture_validation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alel-you <alel-you@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 05:20:00 by alel-you          #+#    #+#             */
-/*   Updated: 2025/12/14 05:20:00 by alel-you         ###   ########.fr       */
+/*   Updated: 2025/12/22 21:43:32 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "../../../inc/cub3d.h"
 
 static char	*extract_texture_path(char *line)
 {
@@ -26,11 +26,6 @@ static char	*extract_texture_path(char *line)
 		return (NULL);
 	trimmed = ft_strtrim(parts[1], " \n\t\r");
 	path = ft_strdup(trimmed);
-	free(trimmed);
-	i = 0;
-	while (parts[i])
-		free(parts[i++]);
-	free(parts);
 	return (path);
 }
 
@@ -62,10 +57,8 @@ static int	validate_texture_file(char *texture_line, char *direction)
 	if (!result)
 	{
 		printf("Error\n%s texture file not found: %s\n", direction, path);
-		free(path);
 		return (0);
 	}
-	free(path);
 	return (1);
 }
 

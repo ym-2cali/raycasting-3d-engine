@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:03:21 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/17 02:11:49 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/22 22:51:21 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	key_events(void* param)
 
 	if (mlx_is_key_down(map->mlx, MLX_KEY_ESCAPE))
 	{
+		destroy_imgs(map);
+		clean_all();
 		mlx_terminate(map->mlx);
 		exit (0);
 	}
@@ -94,7 +96,7 @@ t_player_facing	player_facing(double *angle, int flag)
         else
             return (UP);
     }
-    if (a < M_PI_2 || a > 3 * M_PI_2)
+    if (a < M_PI / 2 || a > 3 * M_PI / 2)
         return (RIGHT);
     else
         return (LEFT);
@@ -105,43 +107,34 @@ int	main(int ac, char **av)
 	t_map *map;
 
 // pars ----------------------------------
-	printf("here 1\n");
 	map = NULL;
-	printf("here 2\n");
 	// ft_bzero(map, sizeof(t_map));
-	printf("here 3\n");
 	if (ac <= 1)
 		return (printf("invalid arguments !!!\n"), 1);
-	map = malloc(sizeof(t_map));
-	if (!map)
-		return (perror(""), 1);
+	map = alloc(sizeof(t_map));
 	if (!parse_arguments(&map, av))
-		return (1);
+		return (clean_all(), 1);
 //	rc ---------------------------------
 	if (get_window(map))
-		return (write(2, "graphics connection Failed\n", 27), 1);
+	{
+		write(2, "graphics connection Failed\n", 27);
+		return (clean_all(), 1);
+	}
 	double	x = 0;
 	double	y = 0;
 	map->rad = TILE_SIZE / 4;
+	if (!load_all_textures(map))
+		return (clean_all(), 1);
 	player_pos(map);
-	map->no_texture = "./textures/north.png";
-	// Load textures
-	map->north_texture = mlx_load_png(map->no_texture);
-	map->south_texture = mlx_load_png("./textures/south.png");
-	map->west_texture = mlx_load_png("./textures/west.png");
-	map->east_texture = mlx_load_png("./textures/east.png");
-	if (!map->north_texture || !map->south_texture || 
-		!map->west_texture || !map->east_texture)
-	{
-		printf("Error loading textures\n");
-		return (1);
-	}
 	if (!get_img(map))
-		return (1);
-	draw_imgs(map);
+		return (clean_all(), 1);
+	// draw_imgs(map);
 	// map_rendering(&map, 0, 0);
 	mlx_image_to_window(map->mlx, map->dir_img, 0, 0);
 	mlx_loop_hook(map->mlx, &key_events, map);
 	mlx_loop(map->mlx);
+	destroy_imgs(map);
 	mlx_terminate(map->mlx);
+	clean_all();
+	return (0);
 }

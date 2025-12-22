@@ -27,7 +27,7 @@ char	*ft_getline(char *rest)
 		i++;
 	if (rest[i] && rest[i] == '\n')
 		i++;
-	line = malloc(sizeof(char) * (i + 1));
+	line = alloc(sizeof(char) * (i + 1));
 	if (!line)
 		return (NULL);
 	while (count < i)

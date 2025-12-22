@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   texture_loader.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alel-you <alel-you@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 05:30:00 by alel-you          #+#    #+#             */
-/*   Updated: 2025/12/14 05:30:00 by alel-you         ###   ########.fr       */
+/*   Updated: 2025/12/22 21:42:29 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "../../../inc/cub3d.h"
 
 static char	*get_texture_path(char *line)
 {
@@ -29,15 +29,10 @@ static char	*get_texture_path(char *line)
 		return (NULL);
 	trimmed = ft_strtrim(parts[i], " \n\t");
 	path = ft_strdup(trimmed);
-	free(trimmed);
-	i = 0;
-	while (parts[i])
-		free(parts[i++]);
-	free(parts);
 	return (path);
 }
 
-static mlx_texture_t	*load_single_texture(char *texture_line)
+static mlx_texture_t	*load_one_texter(char *texture_line)
 {
 	char			*path;
 	mlx_texture_t	*texture;
@@ -46,7 +41,6 @@ static mlx_texture_t	*load_single_texture(char *texture_line)
 	if (!path)
 		return (NULL);
 	texture = mlx_load_png(path);
-	free(path);
 	return (texture);
 }
 
@@ -54,17 +48,17 @@ int	load_all_textures(t_map *map)
 {
 	if (!map)
 		return (0);
-	map->north_tex = load_single_texture(map->no_texture);
-	if (!map->north_tex)
+	map->north_texture = load_one_texter(map->no_texture);
+	if (!map->north_texture)
 		return (printf("Error\nFailed to load North texture\n"), 0);
-	map->south_tex = load_single_texture(map->so_texture);
-	if (!map->south_tex)
+	map->south_texture = load_one_texter(map->so_texture);
+	if (!map->south_texture)
 		return (printf("Error\nFailed to load South texture\n"), 0);
-	map->west_tex = load_single_texture(map->we_texture);
-	if (!map->west_tex)
+	map->west_texture = load_one_texter(map->we_texture);
+	if (!map->west_texture)
 		return (printf("Error\nFailed to load West texture\n"), 0);
-	map->east_tex = load_single_texture(map->ea_texture);
-	if (!map->east_tex)
+	map->east_texture = load_one_texter(map->ea_texture);
+	if (!map->east_texture)
 		return (printf("Error\nFailed to load East texture\n"), 0);
 	return (1);
 }
@@ -73,12 +67,12 @@ void	free_textures(t_map *map)
 {
 	if (!map)
 		return ;
-	if (map->north_tex)
-		mlx_delete_texture(map->north_tex);
-	if (map->south_tex)
-		mlx_delete_texture(map->south_tex);
-	if (map->west_tex)
-		mlx_delete_texture(map->west_tex);
-	if (map->east_tex)
-		mlx_delete_texture(map->east_tex);
+	if (map->north_texture)
+		mlx_delete_texture(map->north_texture);
+	if (map->south_texture)
+		mlx_delete_texture(map->south_texture);
+	if (map->west_texture)
+		mlx_delete_texture(map->west_texture);
+	if (map->east_texture)
+		mlx_delete_texture(map->east_texture);
 }

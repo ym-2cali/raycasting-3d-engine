@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 int	parse_line(char const *str)
 {
@@ -31,7 +32,7 @@ int	parse_line(char const *str)
 			return (printf("Error\ninvalid numbers\n"), 0);
 		i++;
 	}
-	return (1);	
+	return (1);
 }
 
 int	ft_atoi(char const *str)
@@ -51,6 +52,7 @@ int	ft_atoi(char const *str)
 		i++;
 	}
 	if (tmp > 255)
-		return (ft_putstr_fd ("Error\nvalue must be between 0 && 255\n", 2), -1);
+		return (ft_putstr_fd("Error\nvalue between 0 && 255\n", 2),
+			-1);
 	return (tmp);
 }

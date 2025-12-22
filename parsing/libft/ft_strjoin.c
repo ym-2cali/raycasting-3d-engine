@@ -28,7 +28,7 @@ char	*ft_strjoin(char *s1, const char *s2)
 	if (!s1 || !s2)
 		return (NULL);
 	lenght = ft_check_len(s1, s2);
-	join = malloc(lenght);
+	join = alloc(lenght);
 	ft_strlcpy(join, s1, ft_strlen(s1) + 1);
 	ft_strlcat(join, s2, lenght);
 	return (join);
