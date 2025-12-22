@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:11:58 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/22 21:51:39 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/23 00:24:38 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,5 +161,7 @@ int				validate_all_textures(t_map *map);
 void			*alloc(size_t size);
 void			clean_all(void);
 t_mem			**get_mem(void);
+void draw_wall_with_texture(t_map *map, int x, double ray_angle, 
+							 double hor_dist, double ver_dist, double wall_dis);
 
 #endif

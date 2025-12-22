@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:03:21 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/22 22:51:21 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/23 00:04:18 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	key_events(void* param)
 	if (mlx_is_key_down(map->mlx, MLX_KEY_ESCAPE))
 	{
 		destroy_imgs(map);
-		clean_all();
 		mlx_terminate(map->mlx);
+		clean_all();
 		exit (0);
 	}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
