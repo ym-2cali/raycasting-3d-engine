@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alel-you <alel-you@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 00:00:00 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/22 21:54:47 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/23 00:44:59 by alel-you         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_mem	**get_mem(void)
 {
 	static t_mem	*head;
+
 	return (&head);
 }
 
