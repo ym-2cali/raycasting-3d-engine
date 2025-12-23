@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <errno.h>
-# include "/home/yael-maa/cub3d/MLX422/include/MLX42/MLX42.h"
+# include "/home/alel-you/cub3d/MLX422/include/MLX42/MLX42.h"
 # include <fcntl.h>
 # include <math.h>
 # include "../parsing/get_next_line/get_next_line.h"
@@ -105,6 +105,34 @@ typedef struct s_map
 	mlx_texture_t		*east_texture;
 } t_map ;
 
+typedef struct s_texture_data
+{
+	double	ray_angle;
+	double	hor_dist;
+	double	ver_dist;
+	int		facing_up;
+	int		facing_right;
+}	t_texture_data;
+
+typedef struct s_wall_draw
+{
+	mlx_texture_t	*texture;
+	int				x;
+	int				wall_start;
+	int				wall_end;
+	int				tex_x;
+	double			wall_dis;
+}	t_wall_draw;
+
+typedef struct s_ray_params
+{
+	int		x;
+	double	ray_angle;
+	double	hor_dist;
+	double	ver_dist;
+	double	wall_dis;
+}	t_ray_params;
+
 void			player_img(t_map *map, uint32_t color);
 void			draw_img(t_map *map, mlx_image_t* img, uint32_t color);
 int				get_img(t_map *map);
@@ -121,7 +149,18 @@ double			DDA(t_map *map, double x0, double x1, double y0, double y1);
 void			ray_caster(t_map *map);
 int				check_wall(t_map *map, double x, double y);
 void			destroy_imgs(t_map *map);
-void			draw_wall_with_texture(t_map *map, int x, double ray_angle, double hor_dist, double ver_dist, double wall_dis);
+void			calculate_wall_boundaries(double wall_dis, int *wall_start,
+					int *wall_end);
+void			draw_ceiling(t_map *map, int x, int wall_start);
+void			draw_floor(t_map *map, int x, int wall_end);
+mlx_texture_t	*select_texture(t_map *map, double ray_angle, double *wall_x);
+int				calculate_texture_x(mlx_texture_t *texture, double wall_x,
+					t_texture_data *data);
+void			draw_textured_wall(t_map *map, t_wall_draw *w);
+void			select_hor_texture(t_map *map, double ray_angle,
+					mlx_texture_t **texture, double *wall_x);
+void			select_ver_texture(t_map *map, double ray_angle,
+					mlx_texture_t **texture, double *wall_x);
 void			set_var_ver(t_map *map, double *x_inter, double angle);
 void			set_var_hor(t_map *map, double *y_inter, double angle, double *y_step);
 void			set_var_hor1(double *x_step, double angle, double *y_step);
@@ -136,6 +175,7 @@ double	vertical_intersection(t_map *map, double angle,
 t_player_facing	player_facing(double *angle, int flag);
 mlx_texture_t	*load_texture_safe(const char *path, const char *name);
 int				load_all_textures(t_map *map);
+void			free_textures(t_map *map);
 // --------------------------
 t_cred_list		*grap_credantials(int fd);
 int 			extract_credantials(t_map **cb_st, int fd);
@@ -171,7 +211,6 @@ int				validate_all_textures(t_map *map);
 void			*alloc(size_t size);
 void			clean_all(void);
 t_mem			**get_mem(void);
-void 			draw_wall_with_texture(t_map *map, int x, double ray_angle, 
-							 double hor_dist, double ver_dist, double wall_dis);
+void			draw_wall_with_texture(t_map *map, t_ray_params *params);
 
 #endif

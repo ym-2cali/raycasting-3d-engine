@@ -44,6 +44,7 @@ void	key_events(void* param)
 	if (mlx_is_key_down(map->mlx, MLX_KEY_ESCAPE))
 	{
 		destroy_imgs(map);
+		free_textures(map);
 		mlx_terminate(map->mlx);
 		clean_all();
 		exit (0);
@@ -134,6 +135,7 @@ int	main(int ac, char **av)
 	mlx_loop_hook(map->mlx, &key_events, map);
 	mlx_loop(map->mlx);
 	destroy_imgs(map);
+	free_textures(map);
 	mlx_terminate(map->mlx);
 	clean_all();
 	return (0);
