@@ -66,17 +66,17 @@ void	ray_caster_helper(t_map *map, double ray_angle, int i)
 	double			ver_dist;
 	double			hor_x;
 	double			hor_y;
-	double			wall_dis;
 	t_ray_params	params;
 
 	hor_dist = horizontal_intersection(map, ray_angle, &hor_x, &hor_y);
 	ver_dist = vertical_intersection(map, ray_angle, &hor_x, &hor_y);
 	if (hor_dist < ver_dist)
-		wall_dis = (TILE_SIZE * WINDOW_HEIGHT)
-			/ (hor_dist * cos(ray_angle - map->player.rotation_angle));
+		params = (t_ray_params){i, ray_angle, hor_dist, ver_dist,
+			(TILE_SIZE * WINDOW_HEIGHT)
+			/ (hor_dist * cos(ray_angle - map->player.rotation_angle))};
 	else
-		wall_dis = (TILE_SIZE * WINDOW_HEIGHT)
-			/ (ver_dist * cos(ray_angle - map->player.rotation_angle));
-	params = (t_ray_params){i, ray_angle, hor_dist, ver_dist, wall_dis};
+		params = (t_ray_params){i, ray_angle, hor_dist, ver_dist,
+			(TILE_SIZE * WINDOW_HEIGHT)
+			/ (ver_dist * cos(ray_angle - map->player.rotation_angle))};
 	draw_wall_with_texture(map, &params);
 }
