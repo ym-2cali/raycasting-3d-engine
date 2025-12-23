@@ -12,53 +12,6 @@
 
 #include "../../../inc/cub3d.h"
 
-static int	process_line_content(t_cred_list **list, char *line, int *f)
-{
-	char	*content;
-
-	if (!is_map_line(line))
-	{
-		content = ft_strtrim(line, " ");
-		if (!content)
-			return (0);
-		if (!add_content(list, content))
-			return (0);
-	}
-	else
-	{
-		*f = 1;
-		if (!add_content(list, line))
-			return (0);
-	}
-	return (1);
-}
-
-t_cred_list	*grap_credantials(int fd)
-{
-	t_cred_list	*list;
-	char		*line;
-	int			f;
-
-	f = 0;
-	line = get_next_line(fd);
-	list = alloc(sizeof(t_cred_list));
-	if (!list || !line)
-		return (NULL);
-	list = NULL;
-	while (line)
-	{
-		if (!f && !ft_strcmp(line, "\n"))
-		{
-			line = get_next_line(fd);
-			continue ;
-		}
-		if (!process_line_content(&list, line, &f))
-			return (NULL);
-		line = get_next_line(fd);
-	}
-	return (list);
-}
-
 void	print_list(t_cred_list *list)
 {
 	t_cred_list	*tmp;
