@@ -133,6 +133,8 @@ typedef struct s_ray_params
 	double	wall_dis;
 }	t_ray_params;
 
+int				get_window(t_map *map);
+void			key_events(void *param);
 void			player_img(t_map *map, uint32_t color);
 void			draw_img(t_map *map, mlx_image_t* img, uint32_t color);
 int				get_img(t_map *map);

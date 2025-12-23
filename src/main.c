@@ -49,46 +49,6 @@ void	key_events(void *param)
 	update_player(map);
 }
 
-int	map_len(t_map *map)
-{
-	int	len;
-	int	i;
-	int	row_len;
-
-	len = 0;
-	i = 0;
-	while (map->arr[i])
-	{
-		row_len = ft_strlens(map->arr[i]);
-		if (row_len > len)
-			len = row_len;
-		i++;
-	}
-	return (len);
-}
-
-t_player_facing	player_facing(double *angle, int flag)
-{
-	double	a;
-
-	a = *angle;
-	while (a < 0)
-		a += 2 * M_PI;
-	while (a >= 2 * M_PI)
-		a -= 2 * M_PI;
-	if (flag == 1)
-	{
-		if (a > 0 && a < M_PI)
-			return (DOWN);
-		else
-			return (UP);
-	}
-	if (a < M_PI / 2 || a > 3 * M_PI / 2)
-		return (RIGHT);
-	else
-		return (LEFT);
-}
-
 int	main(int ac, char **av)
 {
 	t_map	*map;
