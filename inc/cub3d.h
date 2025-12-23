@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:11:58 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/23 00:24:38 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/23 02:00:01 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,16 @@ void			ray_caster(t_map *map);
 int				check_wall(t_map *map, double x, double y);
 void			destroy_imgs(t_map *map);
 void			draw_wall_with_texture(t_map *map, int x, double ray_angle, double hor_dist, double ver_dist, double wall_dis);
+void			set_var_ver(t_map *map, double *x_inter, double angle);
+void			set_var_hor(t_map *map, double *y_inter, double angle, double *y_step);
+void			set_var_hor1(double *x_step, double angle, double *y_step);
+void			set_var_ver1(double *y_step, double *x_step, double angle);
+double			horizontal_intersection(t_map *map,
+	double angle, double *hit_x, double *hit_y);
+void			angle_reset(double *angle);
+void	ray_caster_helper(t_map *map, double ray_angle, int i);
+double	vertical_intersection(t_map *map, double angle,
+	double *hit_x, double *hit_y);
 // --------------------------
 t_player_facing	player_facing(double *angle, int flag);
 mlx_texture_t	*load_texture_safe(const char *path, const char *name);
@@ -161,7 +171,7 @@ int				validate_all_textures(t_map *map);
 void			*alloc(size_t size);
 void			clean_all(void);
 t_mem			**get_mem(void);
-void draw_wall_with_texture(t_map *map, int x, double ray_angle, 
+void 			draw_wall_with_texture(t_map *map, int x, double ray_angle, 
 							 double hor_dist, double ver_dist, double wall_dis);
 
 #endif
