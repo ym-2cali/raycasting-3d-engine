@@ -90,7 +90,7 @@ void	update_player(t_map *map)
 	x = map->player.x + cos(angle) * move_steps;
 	y = map->player.y + sin(angle) * move_steps;
 	if (check_wall(map, x, y))
-	{	
+	{
 		map->player.x = x;
 		map->player.y = y;
 		clear_dir_img(map);

@@ -85,7 +85,7 @@ void	line_dir(t_map *map, int x, int y, uint32_t color)
 	cx = TILE_SIZE / 2;
 	cy = TILE_SIZE / 2;
 	if (map->player.spg_or == N)
-	{	
+	{
 		if (x == cx && y < cy)
 			mlx_put_pixel(map->player_img, x, y, color);
 	}
