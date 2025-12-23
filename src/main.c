@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:03:21 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/23 00:04:18 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/23 22:00:57 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,7 @@ int	main(int ac, char **av)
 	if (!parse_arguments(&map, av))
 		return (clean_all(), 1);
 	if (get_window(map))
-	{
-		write(2, "graphics connection Failed\n", 27);
-		return (clean_all(), 1);
-	}
+		return (write(2, "graphics connection Failed\n", 27), clean_all(), 1);
 	map->rad = TILE_SIZE / 4;
 	if (!load_all_textures(map))
 		return (clean_all(), 1);

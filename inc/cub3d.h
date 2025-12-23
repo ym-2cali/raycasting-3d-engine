@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alel-you <alel-you@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:11:58 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/23 19:15:42 by alel-you         ###   ########.fr       */
+/*   Updated: 2025/12/23 21:59:36 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <errno.h>
-# include "/home/alel-you/cub3d/.MLX422/include/MLX42/MLX42.h"
+# include "../.MLX422/include/MLX42/MLX42.h"
 # include <fcntl.h>
 # include <math.h>
 # include "../parsing/get_next_line/get_next_line.h"
@@ -29,14 +29,12 @@ typedef struct s_mem
 	struct s_mem	*next;
 }	t_mem;
 
-// # define ROTAT_ANGLE (M_PI / 2)
 # define TILE_SIZE 32 
 # define WINDOW_WIDTH (34 * TILE_SIZE)
 # define WINDOW_HEIGHT (14 * TILE_SIZE)
 # define MOVE_SPEED 1.5
 # define ROTAT_SPEED (1.5 * (M_PI / 180))
 # define FOV 60 * (M_PI / 180)
-// # define TILE_SIZE (2 * (M_PI / 180))
 
 typedef struct s_cred_list
 {
@@ -141,7 +139,6 @@ void			line_dir(t_map *map, int x, int y, uint32_t color);
 void			map_rendering(t_map *map, int x, int y);
 void			draw_imgs(t_map *map);
 void			update_player(t_map *map);
-double			DDA(t_map *map, double x0, double x1, double y0, double y1);
 void			ray_caster(t_map *map);
 int				check_wall(t_map *map, double x, double y);
 void			destroy_imgs(t_map *map);
