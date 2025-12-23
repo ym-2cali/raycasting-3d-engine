@@ -12,30 +12,23 @@
 
 #include "../../inc/cub3d.h"
 
-// double	dda(t_map *map, double x0, double x1, double y0, double y1)
-// {
-// 	double	dx;
-// 	double	dy;
-// 	double	x_inc;
-// 	double	y_inc;
-// 	double	steps;
-// 	double	x;
-// 	double	y;
-// 	int		i;
+void	draw_wall_with_texture(t_map *map, t_ray_params *params)
+{
+	t_wall_draw			w;
+	t_texture_data		data;
+	double				wall_x;
 
-// 	dx = x1 - x0;
-// 	dy = y1 - y0;
-// 	steps = fabs(dx) > fabs(dy) ? fabs(dx) : fabs(dy);
-// 	x_inc = dx / steps;
-// 	y_inc = dy / steps;
-// 	x = x0;
-// 	y = y0;
-// 	i = -1;
-// 	while ((++i) < steps)
-// 	{
-// 		mlx_put_pixel(map->dir_img, round(x), round(y), get_color(204, 57, 9, 255));
-// 		x += x_inc;
-// 		y += y_inc;
-// 	}
-// 	return (sqrt(pow(fabs(x1 - x0), 2) + pow(fabs(y1 - y0), 2)));
-// }
+	map->inter.x = params->hor_dist;
+	map->inter.y = params->ver_dist;
+	calculate_wall_boundaries(params->wall_dis, &w.wall_start, &w.wall_end);
+	w.texture = select_texture(map, params->ray_angle, &wall_x);
+	data.ray_angle = params->ray_angle;
+	data.hor_dist = params->hor_dist;
+	data.ver_dist = params->ver_dist;
+	w.tex_x = calculate_texture_x(w.texture, wall_x, &data);
+	w.x = params->x;
+	w.wall_dis = params->wall_dis;
+	draw_ceiling(map, params->x, w.wall_start);
+	draw_textured_wall(map, &w);
+	draw_floor(map, params->x, w.wall_end);
+}
