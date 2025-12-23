@@ -17,7 +17,7 @@ CFLAGS= -Wall -Wextra -Werror #-fsanitize=address -g3
 all:$(NAME)
 
 $(NAME):$(OBJS) $(LIBFT) inc/cub3d.h
-	$(CC) $(CFLAGS) $(OBJS)  $(LIBFT) MLX422/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS)  $(LIBFT) .MLX422/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm -o $(NAME)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
