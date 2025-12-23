@@ -6,7 +6,7 @@
 /*   By: yael-maa <yael-maa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:11:58 by yael-maa          #+#    #+#             */
-/*   Updated: 2025/12/23 21:59:36 by yael-maa         ###   ########.fr       */
+/*   Updated: 2025/12/23 23:21:34 by yael-maa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ typedef struct s_mem
 }	t_mem;
 
 # define TILE_SIZE 32 
-# define WINDOW_WIDTH (34 * TILE_SIZE)
-# define WINDOW_HEIGHT (14 * TILE_SIZE)
+# define WINDOW_WIDTH 1088
+# define WINDOW_HEIGHT 448
 # define MOVE_SPEED 1.5
-# define ROTAT_SPEED (1.5 * (M_PI / 180))
-# define FOV 60 * (M_PI / 180)
+# define ROTAT_SPEED 0.0261799388
+# define FOV 1.0471975512
 
 typedef struct s_cred_list
 {
